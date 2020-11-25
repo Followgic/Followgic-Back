@@ -15,6 +15,14 @@ Python -v 3.9
 ```
 
 ```
+Django -v 3.1.3
+```
+
+```
+Django rest-framework -v 3.12.2
+```
+
+```
 PostgreSQL -v 13.1 
 ```
 
