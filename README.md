@@ -15,7 +15,7 @@ Python -v 3.9
 ```
 
 ```
-Neo4J -v 
+PostgreSQL -v 13.1 
 ```
 
 ### Instalación 🔧
@@ -36,9 +36,9 @@ _En esta sección explicaremos como realizar el despliegue de la aplicación de 
 
 _Para poder desplegar el backend basta con ejecutar los siguientes comandos:_
 
-_Hay que ejecutar la base de datos Neo4J_
+_Hay que ejecutar la base de datos PostgreSQL
 ```
-Poner comando Neo4J 
+Arrancar manualmente la base de datos con pgAdmin4. 
 ```
 
 _Hay que migrar la base de datos_
