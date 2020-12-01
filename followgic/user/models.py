@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 class Mago(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     nombre = models.TextField(verbose_name='Nombre')

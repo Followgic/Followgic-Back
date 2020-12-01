@@ -6,8 +6,6 @@ from rest_framework.views import APIView
 from user.models import Mago
 from user.serializers import MagoSerializer
 
-
-
 @api_view(['GET'])
 def verMiPerfil(request):
     try:
