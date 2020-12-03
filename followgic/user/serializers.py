@@ -1,7 +1,13 @@
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
-from user.models import Mago
+from user.models import *
 
-class MagoSerializer(serializers.ModelSerializer):
-    class Meta:
+class MagoProfileSerializer(UserSerializer):
+    class Meta(UserSerializer.Meta):
         model = Mago
-        fields = '__all__'
+        fields = ('username', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto_perfil')
+
+class MagoCreateSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = Mago
+        fields = ('username', 'password', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto_perfil')
