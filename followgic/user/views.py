@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import login,logout,authenticate
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from user.models import Mago
 from user.serializers import MagoProfileSerializer
+from rest_framework.authtoken.models import Token
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -20,3 +22,9 @@ def verMiPerfil(request):
             {"detail": "Usuario no autorizado"},
             status = status.HTTP_401_UNAUTHORIZED
         )
+
+class logout(APIView):
+    def get(self,request, format = None):
+        Token.objects.get(user = request.user).delete()
+        logout(request)
+        return Response(status = status.HTTP_200_OK)
