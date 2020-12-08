@@ -25,6 +25,7 @@ def verMiPerfil(request):
 
 class logout(APIView):
     def get(self,request, format = None):
+        print(Token.objects.all())
         Token.objects.get(user = request.user).delete()
         logout(request)
         return Response(status = status.HTTP_200_OK)
