@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Esto es un populate de la Base de Datos de Followgic. Para usar, escribir 'python .\manage.py loaddata followgic/fixtures/populate.xml'-->
+<django-objects version="1.0">
+ <!--CUENTA DE ADMINISTRADOR-->
+    <object pk="1" model="user.mago">
+        <!--admin/admin-->
+        <field type="CharField" name="username">admin</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$4mkfYPHIDJyt$zfvgwhWV/xJz/dE6QfZB6fAveISd44rvKLstnjAk+So=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_superuser">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Álvaro</field>
+        <field type="CharField" name="nombre_artistico">AlvaritoMagic98</field>
+        <field type="CharField" name="descripcion">Me encanta la cartomagia</field>
+        <field type="EmailField" name="email">alvarodiaz@gmail.com</field>
+        <field type="CharField" name="telefono">618303371</field>
+        <field type="CharField" name="pagina_web"></field>
+        <field type="ImageField" name="foto_perfil">default.png</field>
+    </object>
+    <object pk="2" model="user.mago">
+        <!--sulimac98/sulimac98-->
+        <field type="CharField" name="username">sulimac98</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$OCjd8EZXoOHg$j9xrTUhG9H2/K6uF635pUIIZ9KHDfIHRSfeICM2Cxno=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Jesus</field>
+        <field type="CharField" name="nombre_artistico">Sulimac</field>
+        <field type="CharField" name="descripcion">Soy mago desde hace mucho tiempo, me encanta el cardistry y la cartomagia</field>
+        <field type="EmailField" name="email">jeselirod@gmail.com</field>
+        <field type="CharField" name="telefono">662459822</field>
+        <field type="CharField" name="pagina_web">https://followgic.com</field>
+        <field type="ImageField" name="foto_perfil">default.png</field>
+    </object>
+    <object pk="3" model="user.mago">
+        <!--sergimac98/sergimac98-->
+        <field type="CharField" name="username">sergimac98</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$H5xnPk3XcErr$rcdfDGI0wy5Iubo6Hm5x6b/7AD5BzzKbc31YIr1/bRE=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Sergio</field>
+        <field type="CharField" name="nombre_artistico">Sergimac</field>
+        <field type="CharField" name="descripcion">Soy mago desde hace mucho tiempo, me encanta el cardistry y la cartomagia</field>
+        <field type="EmailField" name="email">sergiopmd@gmail.com</field>
+        <field type="CharField" name="telefono">668624566</field>
+        <field type="CharField" name="pagina_web">https://followgic.com</field>
+        <field type="ImageField" name="foto_perfil">default.png</field>
+    </object>
+</django-objects>
