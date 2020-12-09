@@ -11,7 +11,7 @@ class Mago(AbstractUser):
     pagina_web = models.TextField(verbose_name='Dirección de su página web', blank=True)
     foto_perfil = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
 
-    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico']
+    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto_perfil']
 
     def __str__(self):
         return self.username
