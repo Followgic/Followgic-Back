@@ -15,7 +15,7 @@
         <field type="EmailField" name="email">alvarodiaz@gmail.com</field>
         <field type="CharField" name="telefono">618303371</field>
         <field type="CharField" name="pagina_web"></field>
-        <field type="ImageField" name="foto_perfil">default.png</field>
+        <field type="ImageField" name="foto">default.png</field>
     </object>
     <object pk="2" model="user.mago">
         <!--sulimac98/sulimac98-->
@@ -29,7 +29,7 @@
         <field type="EmailField" name="email">jeselirod@gmail.com</field>
         <field type="CharField" name="telefono">662459822</field>
         <field type="CharField" name="pagina_web">https://followgic.com</field>
-        <field type="ImageField" name="foto_perfil">default.png</field>
+        <field type="ImageField" name="foto">default.png</field>
     </object>
     <object pk="3" model="user.mago">
         <!--sergimac98/sergimac98-->
@@ -43,6 +43,6 @@
         <field type="EmailField" name="email">sergiopmd@gmail.com</field>
         <field type="CharField" name="telefono">668624566</field>
         <field type="CharField" name="pagina_web">https://followgic.com</field>
-        <field type="ImageField" name="foto_perfil">default.png</field>
+        <field type="ImageField" name="foto">default.png</field>
     </object>
 </django-objects>

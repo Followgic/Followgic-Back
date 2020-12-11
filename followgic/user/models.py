@@ -9,9 +9,9 @@ class Mago(AbstractUser):
     email = models.EmailField(verbose_name='Email', max_length=255)
     telefono = models.CharField(verbose_name='Numero de teléfono', max_length=15, blank=True)
     pagina_web = models.TextField(verbose_name='Dirección de su página web', blank=True)
-    foto_perfil = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
+    foto = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
 
-    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto_perfil']
+    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto']
 
     def __str__(self):
         return self.username
