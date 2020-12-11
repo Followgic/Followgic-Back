@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from user.models import Mago
-from user.serializers import MagoProfileSerializer
+from user.serializers import MagoProfileSerializer, ImagenMagoSerializer
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import FileUploadParser
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -23,9 +24,12 @@ def verMiPerfil(request):
             status = status.HTTP_401_UNAUTHORIZED
         )
 
-class logout(APIView):
-    def get(self,request, format = None):
-        print(Token.objects.all())
-        Token.objects.get(user = request.user).delete()
-        logout(request)
-        return Response(status = status.HTTP_200_OK)
+class FileUploadView(APIView):
+    parser_class = (FileUploadParser,)
+    def post(self, request, *args, **kwargs):
+      file_serializer = ImagenMagoSerializer(data=request.data)
+      if file_serializer.is_valid():
+          file_serializer.save()
+          return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+      else:
+          return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
