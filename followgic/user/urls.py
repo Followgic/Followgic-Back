@@ -5,5 +5,5 @@ urlpatterns = [
     path('miPerfil/', views.verMiPerfil, name="miPerfil"),
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
-    path('logout/', views.logout.as_view(), name="logout"),
+    path('modalidades/', views.getModalidades, name="modalidades"),
 ]

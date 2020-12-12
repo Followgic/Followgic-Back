@@ -5,8 +5,8 @@ from django.contrib.auth import login,logout,authenticate
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from user.models import Mago
-from user.serializers import MagoProfileSerializer
+from user.models import Mago, Modalidad
+from user.serializers import MagoProfileSerializer, ModalidadesSerializer
 from rest_framework.authtoken.models import Token
 
 @api_view(['GET'])
@@ -23,9 +23,14 @@ def verMiPerfil(request):
             status = status.HTTP_401_UNAUTHORIZED
         )
 
-class logout(APIView):
-    def get(self,request, format = None):
-        print(Token.objects.all())
-        Token.objects.get(user = request.user).delete()
-        logout(request)
-        return Response(status = status.HTTP_200_OK)
+@api_view(['GET'])
+def getModalidades(request):
+    try:
+        modalidades = Modalidad.objects.all()
+        serializer = ModalidadesSerializer(modalidades, many= True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Modalidades no encontradas"},
+            status= status.HTTP_204_NO_CONTENT
+        )
