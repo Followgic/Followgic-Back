@@ -5,5 +5,5 @@ urlpatterns = [
     path('miPerfil/', views.verMiPerfil, name="miPerfil"),
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
-    path('cargarImagen/', views.FileUploadView.as_view(), name="cargarImagen"),
+    path('modalidades/', views.getModalidades, name="modalidades"),
 ]

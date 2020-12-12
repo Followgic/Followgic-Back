@@ -5,10 +5,9 @@ from django.contrib.auth import login,logout,authenticate
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from user.models import Mago
-from user.serializers import MagoProfileSerializer, ImagenMagoSerializer
+from user.models import Mago, Modalidad
+from user.serializers import MagoProfileSerializer, ModalidadesSerializer
 from rest_framework.authtoken.models import Token
-from rest_framework.parsers import FileUploadParser
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -24,12 +23,14 @@ def verMiPerfil(request):
             status = status.HTTP_401_UNAUTHORIZED
         )
 
-class FileUploadView(APIView):
-    parser_class = (FileUploadParser,)
-    def post(self, request, *args, **kwargs):
-      file_serializer = ImagenMagoSerializer(data=request.data)
-      if file_serializer.is_valid():
-          file_serializer.save()
-          return Response(file_serializer.data, status=status.HTTP_201_CREATED)
-      else:
-          return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET'])
+def getModalidades(request):
+    try:
+        modalidades = Modalidad.objects.all()
+        serializer = ModalidadesSerializer(modalidades, many= True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Modalidades no encontradas"},
+            status= status.HTTP_204_NO_CONTENT
+        )
