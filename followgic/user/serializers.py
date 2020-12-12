@@ -15,4 +15,4 @@ class MagoCreateSerializer(UserCreateSerializer):
 class ModalidadesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modalidad
-        fields = ['nombre']
+        fields = ['pk', 'nombre']
