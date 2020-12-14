@@ -19,6 +19,8 @@
         <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
             <object pk="15"></object>
         </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
     </object>
     <object pk="2" model="user.mago">
         <!--sulimac98/sulimac98-->
@@ -39,6 +41,8 @@
             <object pk="7"></object>
             <object pk="8"></object>
         </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
     </object>
     <object pk="3" model="user.mago">
         <!--sergimac98/sergimac98-->
@@ -58,6 +62,8 @@
             <object pk="5"></object>
             <object pk="7"></object>
             <object pk="8"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
     </object>
     <!--MODALIDADES-->

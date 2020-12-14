@@ -16,7 +16,6 @@ def verMisPeticionesPendientes(request):
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         peticiones = Peticion.objects.filter(destinatario= mago)
-        print(peticiones)
         serializer = listarPeticionesSerializer(peticiones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
@@ -32,6 +31,7 @@ def crearPeticionAmistad(request, id):
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         destinatario = Mago.objects.get(pk= id)
+        assert destinatario != Mago.objects.get(pk= 1)
         if (Peticion.objects.filter(remitente= mago, destinatario=destinatario).count() == 0):
             peticion = Peticion()
             peticion.estado = 0
@@ -39,7 +39,6 @@ def crearPeticionAmistad(request, id):
             peticion.remitente = mago
             peticion.destinatario = destinatario
             peticion.save()
-            print(peticion)
             serializer = listarPeticionesSerializer(peticion, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -49,6 +48,6 @@ def crearPeticionAmistad(request, id):
         ) 
     except:
         return Response(
-            {"detail": "Petición no creada"},
+            {"detail": "Petición no valida"},
             status = status.HTTP_400_BAD_REQUEST
         )
