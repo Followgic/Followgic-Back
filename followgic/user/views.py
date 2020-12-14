@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from user.models import Mago, Modalidad
-from user.serializers import MagoProfileSerializer, ModalidadesSerializer
+from user.serializers import MagoProfileSerializer, ModalidadesSerializer, FotoMagoSerializer
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import FileUploadParser
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -33,4 +34,21 @@ def getModalidades(request):
         return Response(
             {"detail": "Modalidades no encontradas"},
             status= status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def setImagenMago(request):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        imagen = request.data['foto']
+        mago.foto = imagen
+        mago.save()
+        serializer = MagoProfileSerializer(mago, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Usuario no autorizado"},
+            status = status.HTTP_401_UNAUTHORIZED
         )

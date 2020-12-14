@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
     path('modalidades/', views.getModalidades, name="modalidades"),
+    path('setImagen/', views.setImagenMago, name="setImagenMago"),
 ]
