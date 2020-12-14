@@ -19,7 +19,7 @@ class Mago(AbstractUser):
     telefono = models.CharField(verbose_name='Numero de teléfono', max_length=15, blank=True)
     pagina_web = models.TextField(verbose_name='Dirección de su página web', blank=True)
     foto = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
-    modalidades = models.ManyToManyField('Modalidad')
+    modalidades = models.ManyToManyField('Modalidad', blank=True)
 
     REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades']
 
