@@ -12,6 +12,16 @@ class MagoCreateSerializer(UserCreateSerializer):
         model = Mago
         fields = ('username', 'password', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'modalidades')
 
+class listadoMagosSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = Mago
+        fields = ('nombre', 'nombre_artistico', 'foto')
+
+class verPerfilMagoSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = Mago
+        fields = ('email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'modalidades', 'foto')
+
 class FotoMagoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mago
