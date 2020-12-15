@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from user.models import Mago, Modalidad
-from user.serializers import MagoProfileSerializer, ModalidadesSerializer, FotoMagoSerializer, MagoCreateSerializer, listadoMagosSerializer, verPerfilMagoSerializer
+from user.serializers import *
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import FileUploadParser
 
@@ -77,6 +77,20 @@ def verPerfilMago(request, id):
     try:
         mago = Mago.objects.get(id= id)
         serializer = verPerfilMagoSerializer(mago, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Usuario no autorizado"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verMisAmigos(request):
+    try:
+        id_usuario = request.user.id
+        amigos = Mago.objects.get(id= id_usuario).amigos
+        serializer = amigosMagoSerializer(amigos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(

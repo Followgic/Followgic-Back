@@ -9,4 +9,5 @@ urlpatterns = [
     path('setImagen/', views.setImagenMago, name="setImagenMago"),
     path('listadoMagos/', views.listadoMagos, name="listadoMagos"),
     path('verPerfil/<int:id>/', views.verPerfilMago, name="verPerfilMago"),
+    path('amigos/', views.verMisAmigos, name="misAmigos"),
 ]
