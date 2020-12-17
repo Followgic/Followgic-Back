@@ -66,6 +66,28 @@
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
     </object>
+    <object pk="16" model="user.mago">
+        <!--youngMagician/contraseña1234-->
+        <field type="CharField" name="username">youngMagician</field>
+        <field type="CharField" name="password">pbkdf2_sha256$305t4bfViiFg47jAW4tVmihNs7X2zhtTr67qO9hTcrc=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Alejandro cano</field>
+        <field type="CharField" name="nombre_artistico">AlexTheMagician</field>
+        <field type="CharField" name="descripcion">Sigo los pasos del mejor mago del mundo DaniDaortiz</field>
+        <field type="EmailField" name="email">youngMagician@gmail.com</field>
+        <field type="CharField" name="telefono">950 66 36 16</field>
+        <field type="CharField" name="pagina_web">https://youngMagician.com</field>
+        <field type="ImageField" name="foto">default.png</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="4"></object>
+            <object pk="5"></object>
+            <object pk="6"></object>
+            <object pk="7"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+    </object>
     <!--MODALIDADES-->
     <object pk="4" model="user.modalidad">
         <field type="CharField" name="nombre">MAGIA DE CERCA</field>

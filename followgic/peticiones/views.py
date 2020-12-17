@@ -7,6 +7,7 @@ from peticiones.models import *
 from peticiones.serializers import *
 from datetime import *
 from user.models import *
+from user.serializers import listadoMagosSerializer
 
 
 @api_view(['GET'])
@@ -136,5 +137,26 @@ def eliminarAmigo(request, id):
     except:
         return Response(
             {"detail": "No se ha podido eliminar este mago de tu lista de amigos"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def usuariosConPeticionesPendientes(request):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk=id_usuario)
+        usuarios = []
+        peticiones = Peticion.objects.filter(remitente= mago, estado=0)
+        for p in peticiones:
+            usuarios.append(p.destinatario)
+        peticiones_entrantes = Peticion.objects.filter(destinatario=mago, estado=0)
+        for p in peticiones_entrantes:
+            usuarios.append(p.remitente)
+        serializer = listadoMagosSerializer(usuarios, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(
+            {"detail": "Fallo al obtener las peticiones"},
             status = status.HTTP_400_BAD_REQUEST
         )

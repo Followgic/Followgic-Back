@@ -7,4 +7,5 @@ urlpatterns = [
     path('rechazarSolicitud/<int:id>/', views.rechazarPeticionAmistad, name="rechazarSolicitudAmistad"),
     path('aceptarSolicitud/<int:id>/', views.aceptarPeticionAmistad, name="aceptarSolicitudAmistad"),
     path('eliminarAmigo/<int:id>/', views.eliminarAmigo, name="eliminarAmigo"),
+    path('peticionesPendientes/', views.usuariosConPeticionesPendientes, name="peticionesPendientes"),
 ]
