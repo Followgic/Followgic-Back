@@ -98,5 +98,25 @@ def verMisAmigos(request):
             status=status.HTTP_401_UNAUTHORIZED
         )
 
-
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def buscarMago(request):
+    try:
+        id_usuario = request.user.id
+        admin = Mago.objects.get(username= 'admin')
+        lista_magos = Mago.objects.all().exclude(id= id_usuario).exclude(id= admin.id)
+        nombre = request.data['nombre']
+        modalidades = request.data['modalidades']
+        if nombre != '':
+            lista_magos = lista_magos.filter(nombre__icontains=nombre)
+        if modalidades:
+            for id_ in modalidades:
+                lista_magos = lista_magos.filter(modalidades__in=[id_]).distinct()
+        serializer = listadoMagosSerializer(lista_magos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Usuario no autorizado"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
