@@ -90,7 +90,7 @@ def verMisAmigos(request):
     try:
         id_usuario = request.user.id
         amigos = Mago.objects.get(id= id_usuario).amigos
-        serializer = amigosMagoSerializer(amigos, many=True)
+        serializer = listadoMagosSerializer(amigos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(
