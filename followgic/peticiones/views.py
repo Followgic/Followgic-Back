@@ -45,7 +45,6 @@ def crearPeticionAmistad(request, id):
             peticion.remitente = mago
             peticion.destinatario = destinatario
             peticion.save()
-            print(Peticion.objects.filter(remitente= mago, destinatario=destinatario, estado=0).count() ==0)
             serializer = listarPeticionesSerializer(peticion, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -73,6 +72,26 @@ def rechazarPeticionAmistad(request, id):
         peticion.delete()
         return Response(
             {"detail": "Petición de amistad rechazada"},
+            status = status.HTTP_200_OK
+        )
+    except:
+        return Response(
+            {"detail": "La petición no se ha podido rechazar"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def cancelarPeticionAmistad(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        peticion = Peticion.objects.get(pk= id)
+        assert peticion.remitente == mago
+        assert peticion.estado == 0
+        peticion.delete()
+        return Response(
+            {"detail": "Petición de amistad cancelada"},
             status = status.HTTP_200_OK
         )
     except:
@@ -160,3 +179,4 @@ def usuariosConPeticionesPendientes(request):
             {"detail": "Fallo al obtener las peticiones"},
             status = status.HTTP_400_BAD_REQUEST
         )
+
