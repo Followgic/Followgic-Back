@@ -6,3 +6,7 @@ class listarPeticionesSerializer(serializers.ModelSerializer):
         model = Peticion
         fields = '__all__'
 
+class idPeticionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Peticion
+        fields = ['pk']
