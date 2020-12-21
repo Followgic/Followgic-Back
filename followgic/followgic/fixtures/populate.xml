@@ -9,7 +9,7 @@
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_superuser">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Álvaro Gonzalez Martin</field>
+        <field type="CharField" name="nombre">Álvaro Gonzalez Martín</field>
         <field type="CharField" name="nombre_artistico">AlvaritoMagic98</field>
         <field type="CharField" name="descripcion">Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias. Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en la boca. Ni siquiera los todopoderosos signos de puntuación dominan a los textos simulados; una vida, se puede decir, poco ortográfica. Pero un buen día, una pequeña línea de texto simulado, llamada Lorem Ipsum, decidió aventurarse y salir al vasto mundo de la gramática. El gran Oxmox le desanconsejó hacerlo, ya que esas tierras estaban llenas de comas malvadas, signos de interrogación salvajes y puntos y coma traicioneros, pero el texto simulado no se dejó atemorizar. Empacó sus siete versales, enfundó su inicial en el cinturón y se puso en camino. Cuando ya había escalado las primeras colinas de las montañas cursivas, se dio media vuelta para dirigir su mirada por última vez, hacia su ciudad natal Letralandia, el encabezamiento del pueblo Alfabeto y el subtítulo de su</field>
         <field type="EmailField" name="email">alvarodiaz@gmail.com</field>
@@ -72,7 +72,7 @@
         <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Alejandro cano</field>
+        <field type="CharField" name="nombre">Alejandro Cano</field>
         <field type="CharField" name="nombre_artistico">AlexTheMagician</field>
         <field type="CharField" name="descripcion">Sigo los pasos del mejor mago del mundo DaniDaortiz</field>
         <field type="EmailField" name="email">youngMagician@gmail.com</field>
@@ -94,8 +94,8 @@
         <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Carmen ruiz castilla</field>
-        <field type="CharField" name="nombre_artistico">CarmenCanela00</field>
+        <field type="CharField" name="nombre">Carmen Ruiz Castilla</field>
+        <field type="CharField" name="nombre_artistico">canelaMagic</field>
         <field type="CharField" name="descripcion">Soy la maga mas buena del mundo, me encanta la cartomagia y la magia de escenario</field>
         <field type="EmailField" name="email">carmenrucasti@gmail.com</field>
         <field type="CharField" name="telefono">671482291</field>
@@ -115,8 +115,8 @@
         <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Inmaculada Ruiz Lobato</field>
-        <field type="CharField" name="nombre_artistico">InmaMagic</field>
+        <field type="CharField" name="nombre">Inmaculada Quesada Paredes</field>
+        <field type="CharField" name="nombre_artistico">Inmagic</field>
         <field type="CharField" name="descripcion">Me encanta la magia de cerca y el cardistry</field>
         <field type="EmailField" name="email">inmamagic00@gmail.com</field>
         <field type="CharField" name="telefono">642190208</field>
@@ -132,16 +132,16 @@
     </object>
     <object pk="19" model="user.mago">
         <!--karen96/contraseña1234-->
-        <field type="CharField" name="username">karen96</field>
+        <field type="CharField" name="username">martadiaz00</field>
         <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Karen Martin Jiménez</field>
-        <field type="CharField" name="nombre_artistico">La gran karen</field>
+        <field type="CharField" name="nombre">Marta Díaz</field>
+        <field type="CharField" name="nombre_artistico">La gran marta</field>
         <field type="CharField" name="descripcion">Maga de escenario y de grandes ilusiones</field>
-        <field type="EmailField" name="email">karenoficialM@gmail.com</field>
+        <field type="EmailField" name="email">martaoficial@gmail.com</field>
         <field type="CharField" name="telefono">674228196</field>
-        <field type="CharField" name="pagina_web">https://lagranilusiondekaren.com</field>
+        <field type="CharField" name="pagina_web">https://lagranilusiondemarta.com</field>
         <field type="ImageField" name="foto">karen.jpg</field>
         <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
             <object pk="9"></object>
