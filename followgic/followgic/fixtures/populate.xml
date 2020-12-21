@@ -78,7 +78,7 @@
         <field type="EmailField" name="email">youngMagician@gmail.com</field>
         <field type="CharField" name="telefono">950663616</field>
         <field type="CharField" name="pagina_web">https://youngMagician.com</field>
-        <field type="ImageField" name="foto">alejandro.png</field>
+        <field type="ImageField" name="foto">alex.jpg</field>
         <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
             <object pk="4"></object>
             <object pk="5"></object>
@@ -115,7 +115,7 @@
         <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
         <field type="IntegerField" name="is_active">1</field>
         <field type="IntegerField" name="is_staff">1</field>
-        <field type="CharField" name="nombre">Inmaculada Quesada Paredes</field>
+        <field type="CharField" name="nombre">Inma Quesada Paredes</field>
         <field type="CharField" name="nombre_artistico">Inmagic</field>
         <field type="CharField" name="descripcion">Me encanta la magia de cerca y el cardistry</field>
         <field type="EmailField" name="email">inmamagic00@gmail.com</field>
