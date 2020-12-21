@@ -9,4 +9,5 @@ urlpatterns = [
     path('aceptarSolicitud/<int:id>/', views.aceptarPeticionAmistad, name="aceptarSolicitudAmistad"),
     path('eliminarAmigo/<int:id>/', views.eliminarAmigo, name="eliminarAmigo"),
     path('peticionesPendientes/', views.usuariosConPeticionesPendientes, name="peticionesPendientes"),
+    path('peticionPendienteConUsuario/<int:id>/', views.peticionPendienteConUsuario, name="peticionPendienteConUsuario"),
 ]

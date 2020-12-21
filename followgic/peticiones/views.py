@@ -173,10 +173,25 @@ def usuariosConPeticionesPendientes(request):
         for p in peticiones_entrantes:
             usuarios.append(p.remitente)
         serializer = listadoMagosSerializer(usuarios, many=True)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(
-            {"detail": "Fallo al obtener las peticiones"},
+            {"detail": "Fallo al obtener los usuarios"},
             status = status.HTTP_400_BAD_REQUEST
         )
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def peticionPendienteConUsuario(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk=id_usuario)
+        destinatario = Mago.objects.get(pk = id)
+        peticion = Peticion.objects.get(remitente= mago, destinatario=destinatario, estado=0)
+        serializer = idPeticionesSerializer(peticion, many= False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Fallo al obtener la petición"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
