@@ -20,8 +20,9 @@ class Mago(AbstractUser):
     pagina_web = models.TextField(verbose_name='Dirección de su página web', blank=True)
     foto = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
     modalidades = models.ManyToManyField('Modalidad', blank=True)
+    amigos = models.ManyToManyField('Mago', blank=True)
 
-    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades']
+    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos']
 
     def __str__(self):
         return self.username
