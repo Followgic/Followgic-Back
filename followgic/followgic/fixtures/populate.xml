@@ -78,11 +78,7 @@
         <field type="EmailField" name="email">youngMagician@gmail.com</field>
         <field type="CharField" name="telefono">950663616</field>
         <field type="CharField" name="pagina_web">https://youngMagician.com</field>
-<<<<<<< HEAD
-        <field type="ImageField" name="foto">alejandro.jpg</field>
-=======
         <field type="ImageField" name="foto">alex.jpg</field>
->>>>>>> RS
         <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
             <object pk="4"></object>
             <object pk="5"></object>
