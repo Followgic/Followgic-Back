@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user',
     'djoser',
     'peticiones',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'followgic.wsgi.application'
+ASGI_APPLICATION = 'followgic.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
 
 
 # Database
