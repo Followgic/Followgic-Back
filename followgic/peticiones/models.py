@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.signals import post_save
 
 class Peticion(models.Model):
     estado = models.IntegerField(verbose_name='Estado', validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -12,3 +13,13 @@ class Peticion(models.Model):
     
     class Meta:
         ordering = ('fecha', )
+
+def crear_grupo_notificacion(sender, instance, **kwargs):
+    id_peticion = instance.pk
+    peticion = Peticion.objects.get(pk = id_peticion)
+    if(peticion.estado == 0):
+        print(peticion)
+    else:
+        pass
+
+post_save.connect(crear_grupo_notificacion, sender= Peticion)
