@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Esto es un populate de la Base de Datos de Followgic. Para usar, escribir 'python .\manage.py loaddata followgic/fixtures/populate.xml'-->
+<!-- Ultimo objeto con pk = 20, proximo pk= 21 -->
 <django-objects version="1.0">
  <!--CUENTA DE ADMINISTRADOR-->
     <object pk="1" model="user.mago">
@@ -191,5 +192,12 @@
     </object>
     <object pk="15" model="user.modalidad">
         <field type="CharField" name="nombre">OTRAS</field>
+    </object>
+    <object pk="20" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">Primera pregunta</field>
+        <field type="CharField" name="primera_opcion">Primera respuesta</field>
+        <field type="CharField" name="segunda_opcion">Segunda respuesta</field>
+        <field type="CharField" name="tercera_opcion">Tercera respuesta</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
     </object>
 </django-objects>

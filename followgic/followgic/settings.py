@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user',
     'djoser',
     'peticiones',
+    'preguntas',
 ]
 
 MIDDLEWARE = [
