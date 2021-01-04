@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET'])
 def obtenerPreguntas(request):
     try:
-        preguntas = Pregunta.objects.order_by('?')[:1]
+        preguntas = Pregunta.objects.order_by('?')[:5]
         serializer = listarPreguntasSerializer(preguntas, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:

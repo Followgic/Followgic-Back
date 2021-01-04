@@ -194,10 +194,45 @@
         <field type="CharField" name="nombre">OTRAS</field>
     </object>
     <object pk="20" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">Primera pregunta</field>
-        <field type="CharField" name="primera_opcion">Primera respuesta</field>
-        <field type="CharField" name="segunda_opcion">Segunda respuesta</field>
-        <field type="CharField" name="tercera_opcion">Tercera respuesta</field>
+        <field type="CharField" name="enunciado">¿Qué es la magia?</field>
+        <field type="CharField" name="primera_opcion">Una forma de ligar con chicas</field>
+        <field type="CharField" name="segunda_opcion">Un arte con el que te puedes divertir, sorprender a las personas y además ganar dinero</field>
+        <field type="CharField" name="tercera_opcion">Es el único arte que hace realidad lo imposible</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="21" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quienes forman el grupo de magia llamado los Fat Brothers?</field>
+        <field type="CharField" name="primera_opcion">Dani DaOrtiz y Juan Tamariz</field>
+        <field type="CharField" name="segunda_opcion">Dani DaOrtiz, Miguel Angel Gea y Christian Engblom</field>
+        <field type="CharField" name="tercera_opcion">El Mago Pop, Jorge Blass y Yunke</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="22" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cual es el nombre del juego en el que se mezclan cartas cara arriba con cartas cara abajo?</field>
+        <field type="CharField" name="primera_opcion">Triunfo</field>
+        <field type="CharField" name="segunda_opcion">Mini agua y aceite</field>
+        <field type="CharField" name="tercera_opcion">La baraja ambiciosa</field>
         <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="23" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Que tipo de baraja es capaz de crear la ilusión de que todas sus cartas son iguales?</field>
+        <field type="CharField" name="primera_opcion">Baraja Invisible</field>
+        <field type="CharField" name="segunda_opcion">Baraja Svengali</field>
+        <field type="CharField" name="tercera_opcion">Baraja Biselada</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="24" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cual es el nombre del juego en el que los colores de las cartas se separan?</field>
+        <field type="CharField" name="primera_opcion">Pensando en colores</field>
+        <field type="CharField" name="segunda_opcion">El trilero</field>
+        <field type="CharField" name="tercera_opcion">Agua y aceite</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+     <object pk="25" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quien inventó el truco del Triunfo?</field>
+        <field type="CharField" name="primera_opcion">Dai Vernon</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz</field>
+        <field type="CharField" name="tercera_opcion">Dani Daortiz</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
     </object>
 </django-objects>
