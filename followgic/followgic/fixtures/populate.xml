@@ -233,6 +233,27 @@
         <field type="CharField" name="primera_opcion">Dai Vernon</field>
         <field type="CharField" name="segunda_opcion">Juan Tamariz</field>
         <field type="CharField" name="tercera_opcion">Dani Daortiz</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="26" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Como se llama el arte de hacer florituras y figuras con las cartas?</field>
+        <field type="CharField" name="primera_opcion">Cartomagia</field>
+        <field type="CharField" name="segunda_opcion">Cardistry</field>
+        <field type="CharField" name="tercera_opcion">Ilusionismo</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="27" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cual es el nombre del famoso mago que utiliza, por excelencia, el humor como herramienta principal en todos sus numeros de magia?</field>
+        <field type="CharField" name="primera_opcion">El Mago Pop</field>
+        <field type="CharField" name="segunda_opcion">Luis Piedrahita</field>
+        <field type="CharField" name="tercera_opcion">Juan Tamariz</field>
         <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="28" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué herramienta fundamental necesita todo mago para hacer magia con pañuelos?</field>
+        <field type="CharField" name="primera_opcion">FP</field>
+        <field type="CharField" name="segunda_opcion">Hilos invisibles</field>
+        <field type="CharField" name="tercera_opcion">Imanes</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
     </object>
 </django-objects>
