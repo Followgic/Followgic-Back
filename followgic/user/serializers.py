@@ -35,7 +35,7 @@ class ModalidadesSerializer(serializers.ModelSerializer):
 class createModalidadesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modalidad
-        fields = ['nombre']
+        fields = ['pk', 'nombre']
 
 class amigosMagoSerializer(serializers.ModelSerializer):
     class Meta:

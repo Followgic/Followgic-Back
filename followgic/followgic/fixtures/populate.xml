@@ -155,43 +155,43 @@
     </object>
     <!--MODALIDADES-->
     <object pk="4" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE CERCA</field>
+        <field type="CharField" name="nombre">Magia de cerca</field>
     </object>
     <object pk="5" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE SALÓN</field>
+        <field type="CharField" name="nombre">Magia de salón</field>
     </object>
     <object pk="6" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE ESCENA</field>
+        <field type="CharField" name="nombre">Magia de escena</field>
     </object>
     <object pk="7" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CALLEJERA</field>
+        <field type="CharField" name="nombre">Magia callejera</field>
     </object>
     <object pk="7" model="user.modalidad">
-        <field type="CharField" name="nombre">NUMISMAGIA</field>
+        <field type="CharField" name="nombre">Numismagia</field>
     </object>
     <object pk="8" model="user.modalidad">
-        <field type="CharField" name="nombre">CARTOMAGIA</field>
+        <field type="CharField" name="nombre">Cartomagia</field>
     </object>
     <object pk="9" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CON ANIMALES</field>
+        <field type="CharField" name="nombre">Magia con animales</field>
     </object>
     <object pk="10" model="user.modalidad">
-        <field type="CharField" name="nombre">GRANDES ILUSIONES</field>
+        <field type="CharField" name="nombre">Grandes ilusiones</field>
     </object>
     <object pk="11" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CÓMICA</field>
+        <field type="CharField" name="nombre">Magia cómica</field>
     </object>
     <object pk="12" model="user.modalidad">
-        <field type="CharField" name="nombre">MENTALISMO</field>
+        <field type="CharField" name="nombre">Mentalismo</field>
     </object>
     <object pk="13" model="user.modalidad">
-        <field type="CharField" name="nombre">PRESTIDIGITACIÓN</field>
+        <field type="CharField" name="nombre">Prestidigitación</field>
     </object>
     <object pk="14" model="user.modalidad">
-        <field type="CharField" name="nombre">ESCAPISMO</field>
+        <field type="CharField" name="nombre">Escapismo</field>
     </object>
     <object pk="15" model="user.modalidad">
-        <field type="CharField" name="nombre">OTRAS</field>
+        <field type="CharField" name="nombre">Otras</field>
     </object>
     <object pk="20" model="preguntas.Pregunta">
         <field type="CharField" name="enunciado">¿Qué es la magia?</field>
