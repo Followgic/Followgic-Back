@@ -11,4 +11,5 @@ urlpatterns = [
     path('listadoMagos/', views.listadoMagos, name="listadoMagos"),
     path('verPerfil/<int:id>/', views.verPerfilMago, name="verPerfilMago"),
     path('amigos/', views.verMisAmigos, name="misAmigos"),
+    path('buscarMagos/', views.buscarMago, name="buscarMagos"),
 ]

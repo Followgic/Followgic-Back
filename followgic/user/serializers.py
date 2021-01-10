@@ -15,7 +15,7 @@ class MagoCreateSerializer(UserCreateSerializer):
 class listadoMagosSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = Mago
-        fields = ('pk','nombre', 'nombre_artistico', 'foto')
+        fields = ('pk','nombre', 'nombre_artistico', 'foto', 'modalidades')
 
 class verPerfilMagoSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
