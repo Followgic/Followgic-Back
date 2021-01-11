@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from .models import *
 
 class listarMensajesSerializer(serializers.ModelSerializer):

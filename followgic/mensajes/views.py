@@ -6,6 +6,7 @@ from rest_framework import status
 from .models import *
 from .serializers import *
 from user.models import *
+from datetime import *
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -13,14 +14,20 @@ def verMisMensajesNoLeidos(request):
     try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
+        res = []
+        remitentes = []
         mensajes = Mensaje.objects.filter(destinatario= mago, estado=0)
-        serializer = listarMensajesSerializer(mensajes, many=True)
+        for m in mensajes:
+            if m.remitente not in remitentes:
+                res.append(m)
+                remitentes.append(m.remitente)
+        serializer = listarMensajesSerializer(res, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(
             {"detail": "No hay mensajes nuevos"},
             status = status.HTTP_204_NO_CONTENT
-        )
+       )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -28,8 +35,14 @@ def verMisMensajes(request):
     try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
-        mensajes = Mensaje.objects.filter(destinatario= mago)
-        serializer = listarMensajesSerializer(mensajes, many=True)
+        res = []
+        remitentes = []
+        mensajes = Mensaje.objects.filter(destinatario= mago).order_by('-fecha')
+        for m in mensajes:
+            if m.remitente not in remitentes:
+                res.append(m)
+                remitentes.append(m.remitente)
+        serializer = listarMensajesSerializer(res, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(
@@ -37,7 +50,7 @@ def verMisMensajes(request):
             status = status.HTTP_204_NO_CONTENT
         )
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def enviarMensaje(request, id):
     try:
@@ -46,12 +59,12 @@ def enviarMensaje(request, id):
         destinatario = Mago.objects.get(pk= id)
         assert destinatario != Mago.objects.get(pk= 1)
         assert destinatario != mago
-        #No haya una peticion pendiente o una peticion aceptada (ya son amigos)
         mensaje = Mensaje()
         mensaje.estado = 0
-        mensaje.fecha = date.today()
+        mensaje.fecha = datetime.now()
         mensaje.remitente = mago
         mensaje.destinatario = destinatario
+        mensaje.cuerpo = request.data['cuerpo']
         mensaje.save()
         serializer = listarMensajesSerializer(mensaje, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
