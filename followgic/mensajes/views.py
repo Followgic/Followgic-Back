@@ -73,3 +73,53 @@ def enviarMensaje(request, id):
             {"detail": "Mensaje no valido"},
             status = status.HTTP_400_BAD_REQUEST
         )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verConversacion(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        mensaje = Mensaje.objects.get(pk= id)
+        #Verificación de que el mensaje es del usuario actual
+        assert mensaje.destinatario == mago
+        mensajes_conversacion = Mensaje.objects.filter(remitente= mago, destinatario= mensaje.remitente).order_by('fecha') | Mensaje.objects.filter(remitente= mensaje.remitente, destinatario= mago).order_by('fecha')
+        #El mensaje entrante del mago se marca como leido asi como los mensajes anteriores que tiene con dicho usuario si los hubiera
+        if mensaje.estado == 0:
+            mensaje.estado = 1
+            mensaje.save()
+            if Mensaje.objects.filter(destinatario=mago, remitente= mensaje.remitente, estado=0).count() != 0:
+                mensajes = Mensaje.objects.filter(destinatario=mago, remitente= mensaje.remitente, estado=0)
+                for m in mensajes:
+                    m.estado = 1
+                    m.save()
+        serializer = listarMensajesSerializer(mensajes_conversacion, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No tienes mensajes"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def eliminarConversacion(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        mensaje = Mensaje.objects.get(pk= id)
+        #Verificación de que el mensaje es del usuario actual
+        assert mensaje.destinatario == mago
+        mensajes_conversacion = Mensaje.objects.filter(remitente= mago, destinatario= mensaje.remitente) | Mensaje.objects.filter(remitente= mensaje.remitente, destinatario= mago)
+        #Eliminar los mensajes de la conversacion
+        for m in mensajes_conversacion:
+            m.delete()
+        return Response(
+            {"detail": "Conversación eliminada correctamente"},
+            status = status.HTTP_200_OK
+        )
+    except:
+        return Response(
+            {"detail": "La conversación no se ha podido eliminar"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
