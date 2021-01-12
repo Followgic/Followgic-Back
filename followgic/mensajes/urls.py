@@ -6,5 +6,5 @@ urlpatterns = [
     path('mensajes/', views.verMisMensajes, name="verTodosMensajes"),
     path('nuevosMensajes/', views.verMisMensajesNoLeidos, name="mensajesNoLeidos"),
     path('verConversacion/<int:id>/', views.verConversacion, name="verConversacion"),
-    path('eliminarConversacion/<int:id>/', views.eliminarConversacion, name="eliminarConversacion"),
+    path('eliminarMensaje/<int:id>/', views.eliminarMensaje, name="eliminarMensaje"),
 ]

@@ -103,23 +103,20 @@ def verConversacion(request, id):
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def eliminarConversacion(request, id):
+def eliminarMensaje(request, id):
     try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         mensaje = Mensaje.objects.get(pk= id)
         #Verificación de que el mensaje es del usuario actual
-        assert mensaje.destinatario == mago
-        mensajes_conversacion = Mensaje.objects.filter(remitente= mago, destinatario= mensaje.remitente) | Mensaje.objects.filter(remitente= mensaje.remitente, destinatario= mago)
-        #Eliminar los mensajes de la conversacion
-        for m in mensajes_conversacion:
-            m.delete()
+        assert mensaje.remitente == mago
+        mensaje.delete()
         return Response(
-            {"detail": "Conversación eliminada correctamente"},
+            {"detail": "Mensaje eliminado correctamente"},
             status = status.HTTP_200_OK
         )
     except:
         return Response(
-            {"detail": "La conversación no se ha podido eliminar"},
+            {"detail": "El mensaje no se puede eliminar"},
             status = status.HTTP_400_BAD_REQUEST
         )
