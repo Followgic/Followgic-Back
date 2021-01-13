@@ -203,7 +203,7 @@
     <object pk="21" model="preguntas.Pregunta">
         <field type="CharField" name="enunciado">¿Quienes forman el grupo de magia llamado los Fat Brothers?</field>
         <field type="CharField" name="primera_opcion">Dani DaOrtiz y Juan Tamariz.</field>
-        <field type="CharField" name="segunda_opcion">Dani DaOrtiz, Miguel Angel Gea y Christian Engblom.</field>
+        <field type="CharField" name="segunda_opcion">Dani DaOrtiz, Miguel Ángel Gea y Christian Engblom.</field>
         <field type="CharField" name="tercera_opcion">El Mago Pop, Jorge Blass y Yunke.</field>
         <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
@@ -222,14 +222,14 @@
         <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
     <object pk="24" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Cual es el nombre del juego en el que los colores de las cartas se separan?</field>
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del juego en el que los colores de las cartas se separan?</field>
         <field type="CharField" name="primera_opcion">Pensando en colores.</field>
         <field type="CharField" name="segunda_opcion">El trilero.</field>
         <field type="CharField" name="tercera_opcion">Agua y aceite.</field>
         <field type="IntegerField" name="respuesta_correcta">2</field>
     </object>
      <object pk="25" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Quien inventó el truco del Triunfo?</field>
+        <field type="CharField" name="enunciado">¿Quién inventó el truco del Triunfo?</field>
         <field type="CharField" name="primera_opcion">Dai Vernon.</field>
         <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
         <field type="CharField" name="tercera_opcion">Dani Daortiz.</field>
@@ -243,7 +243,7 @@
         <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
     <object pk="27" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Cual es el nombre del famoso mago que utiliza, por excelencia, el humor como herramienta principal en todos sus numeros de magia?</field>
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del famoso mago que utiliza, por excelencia, el humor como herramienta principal en todos sus números de magia?</field>
         <field type="CharField" name="primera_opcion">El Mago Pop.</field>
         <field type="CharField" name="segunda_opcion">Luis Piedrahita.</field>
         <field type="CharField" name="tercera_opcion">Juan Tamariz.</field>
@@ -271,7 +271,7 @@
         <field type="IntegerField" name="respuesta_correcta">2</field>
     </object>
     <object pk="31" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Como se denomina al trucaje de un objeto mágico?</field>
+        <field type="CharField" name="enunciado">¿Cómo se denomina al trucaje de un objeto mágico?</field>
         <field type="CharField" name="primera_opcion">Objeto trucado.</field>
         <field type="CharField" name="segunda_opcion">Gaff.</field>
         <field type="CharField" name="tercera_opcion">Gimmick.</field>
@@ -285,21 +285,21 @@
         <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
     <object pk="33" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Quien se conoce como 'El profesor' dentro de la magia?</field>
+        <field type="CharField" name="enunciado">¿Quién se conoce como 'El profesor' dentro de la magia?</field>
         <field type="CharField" name="primera_opcion">Dai Vernon.</field>
         <field type="CharField" name="segunda_opcion">Harry Houdini.</field>
         <field type="CharField" name="tercera_opcion">Copperfield.</field>
         <field type="IntegerField" name="respuesta_correcta">0</field>
     </object>
     <object pk="34" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Que nombre se le atribuye a la magia con monedas?</field>
+        <field type="CharField" name="enunciado">¿Qué nombre se le atribuye a la magia con monedas?</field>
         <field type="CharField" name="primera_opcion">Prestidigitación.</field>
         <field type="CharField" name="segunda_opcion">Numismagia.</field>
         <field type="CharField" name="tercera_opcion">Ilusionismo.</field>
         <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
     <object pk="35" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Quien es el autor de cartomagia fundamental?</field>
+        <field type="CharField" name="enunciado">¿Quién es el autor de cartomagia fundamental?</field>
         <field type="CharField" name="primera_opcion">Jandro.</field>
         <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
         <field type="CharField" name="tercera_opcion">Vicente canuto.</field>
@@ -313,21 +313,21 @@
         <field type="IntegerField" name="respuesta_correcta">0</field>
     </object>
     <object pk="37" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿Como se llama el premio mundial de magia?</field>
+        <field type="CharField" name="enunciado">¿Cómo se llama el premio mundial de magia?</field>
         <field type="CharField" name="primera_opcion">FESMA.</field>
         <field type="CharField" name="segunda_opcion">Merlín.</field>
         <field type="CharField" name="tercera_opcion">FISM.</field>
         <field type="IntegerField" name="respuesta_correcta">2</field>
     </object>
     <object pk="38" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿En que consiste la manipulación en el mundo de la magia?</field>
+        <field type="CharField" name="enunciado">¿En qué consiste la manipulación en el mundo de la magia?</field>
         <field type="CharField" name="primera_opcion">Manipular grandes grupos de personas.</field>
         <field type="CharField" name="segunda_opcion">Hacer florituras y figuras con cartas.</field>
         <field type="CharField" name="tercera_opcion">En hacer apariciones, desvanecimientos y transformaciones de objetos.</field>
         <field type="IntegerField" name="respuesta_correcta">2</field>
     </object>
     <object pk="39" model="preguntas.Pregunta">
-        <field type="CharField" name="enunciado">¿A quien pertenece la baraja mnemonica?</field>
+        <field type="CharField" name="enunciado">¿A quién pertenece la baraja mnemonica?</field>
         <field type="CharField" name="primera_opcion">Dani DaOrtiz.</field>
         <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
         <field type="CharField" name="tercera_opcion">Woody Aragón.</field>
