@@ -8,6 +8,15 @@ from .serializers import *
 from user.models import *
 from datetime import *
 
+def sonAmigos(mago, id):
+    res = False
+    print(id)
+    print(mago.amigos.all())
+    for amigo in mago.amigos.all():
+        if id == amigo.id:
+            res = True
+    return res
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def verMisMensajesNoLeidos(request):
@@ -59,6 +68,7 @@ def enviarMensaje(request, id):
         destinatario = Mago.objects.get(pk= id)
         assert destinatario != Mago.objects.get(pk= 1)
         assert destinatario != mago
+        assert sonAmigos(mago, destinatario.id) == True
         mensaje = Mensaje()
         mensaje.estado = 0
         mensaje.fecha = datetime.now()
@@ -98,6 +108,30 @@ def verConversacion(request, id):
     except:
         return Response(
             {"detail": "No tienes mensajes"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verConversacionPorMago(request, id):
+    try:
+        id_usuario = request.user.id
+        usuario = Mago.objects.get(pk= id_usuario)
+        mago = Mago.objects.get(pk= id)
+        #Verificación de que son amigos
+        assert sonAmigos(usuario, mago.id) == True
+        mensajes_conversacion = Mensaje.objects.filter(remitente= usuario, destinatario= mago).order_by('fecha') | Mensaje.objects.filter(remitente= mago, destinatario= usuario).order_by('fecha')
+        #Marca como leidos los mensajes que no estén leidos anteriormente
+        if Mensaje.objects.filter(remitente= usuario, destinatario= mago, estado=0).count() != 0 or Mensaje.objects.filter(remitente= mago, destinatario= usuario, estado=0).count() != 0:
+            for m in mensajes_conversacion:
+                if m.estado == 0:
+                    m.estado = 1
+                    m.save()
+        serializer = listarMensajesSerializer(mensajes_conversacion, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No se ha encontrado esta conversación"},
             status = status.HTTP_204_NO_CONTENT
         )
 
