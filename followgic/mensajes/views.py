@@ -46,7 +46,7 @@ def verMisMensajes(request):
         mago = Mago.objects.get(pk= id_usuario)
         res = []
         remitentes = []
-        mensajes = Mensaje.objects.filter(destinatario= mago).order_by('-fecha')
+        mensajes = Mensaje.objects.filter(destinatario= mago).order_by('-fecha') | Mensaje.objects.filter(remitente= mago).order_by('-fecha')
         for m in mensajes:
             if m.remitente not in remitentes:
                 res.append(m)
