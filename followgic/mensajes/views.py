@@ -92,10 +92,10 @@ def verConversacion(request, id):
         mago = Mago.objects.get(pk= id_usuario)
         mensaje = Mensaje.objects.get(pk= id)
         #Verificación de que el mensaje es del usuario actual
-        assert mensaje.destinatario == mago
+        assert mensaje.destinatario == mago or mensaje.remitente == mago
         mensajes_conversacion = Mensaje.objects.filter(remitente= mago, destinatario= mensaje.remitente).order_by('fecha') | Mensaje.objects.filter(remitente= mensaje.remitente, destinatario= mago).order_by('fecha')
         #El mensaje entrante del mago se marca como leido asi como los mensajes anteriores que tiene con dicho usuario si los hubiera
-        if mensaje.estado == 0:
+        if mensaje.estado == 0 and mensaje.destinatario == mago:
             mensaje.estado = 1
             mensaje.save()
             if Mensaje.objects.filter(destinatario=mago, remitente= mensaje.remitente, estado=0).count() != 0:
@@ -122,7 +122,7 @@ def verConversacionPorMago(request, id):
         assert sonAmigos(usuario, mago.id) == True
         mensajes_conversacion = Mensaje.objects.filter(remitente= usuario, destinatario= mago).order_by('fecha') | Mensaje.objects.filter(remitente= mago, destinatario= usuario).order_by('fecha')
         #Marca como leidos los mensajes que no estén leidos anteriormente
-        if Mensaje.objects.filter(remitente= usuario, destinatario= mago, estado=0).count() != 0 or Mensaje.objects.filter(remitente= mago, destinatario= usuario, estado=0).count() != 0:
+        if Mensaje.objects.filter(remitente= mago, destinatario= usuario, estado=0).count() != 0:
             for m in mensajes_conversacion:
                 if m.estado == 0:
                     m.estado = 1
