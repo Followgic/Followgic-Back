@@ -10,8 +10,6 @@ from datetime import *
 
 def sonAmigos(mago, id):
     res = False
-    print(id)
-    print(mago.amigos.all())
     for amigo in mago.amigos.all():
         if id == amigo.id:
             res = True
@@ -41,23 +39,21 @@ def verMisMensajesNoLeidos(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def verMisMensajes(request):
-    #try:
+    try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         mensajes = []
-        #Recorro los amigos, miro con los que tengo conversacion, saco cada conversacion y consigo el ultimo, lo añado a una lista y esa es la que devuelvo.
         for amigo in mago.amigos.all():
             if (Mensaje.objects.filter(remitente=mago, destinatario=amigo).count() != 0 or Mensaje.objects.filter(remitente=amigo, destinatario=mago).count() != 0):
                 conversacion = Mensaje.objects.filter(remitente= mago, destinatario= amigo).order_by('fecha') | Mensaje.objects.filter(remitente= amigo, destinatario= mago).order_by('fecha')
-                print(conversacion.reverse()[0])
                 mensajes.append(conversacion.reverse()[0])
         serializer = listarMensajesSerializer(mensajes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    #except:
-        #return Response(
-        #    {"detail": "No tienes mensajes"},
-        #    status = status.HTTP_204_NO_CONTENT
-        #)
+    except:
+        return Response(
+            {"detail": "No tienes mensajes"},
+            status = status.HTTP_204_NO_CONTENT
+        )
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
