@@ -44,15 +44,13 @@ def verMisMensajes(request):
     try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
-        res = []
-        remitentes = []
+        mensajes = []
         #Recorro los amigos, miro con los que tengo conversacion, saco cada conversacion y consigo el ultimo, lo añado a una lista y esa es la que devuelvo.
-        mensajes = Mensaje.objects.filter(destinatario= mago).order_by('-fecha') | Mensaje.objects.filter(remitente= mago).order_by('-fecha')
-        for m in mensajes:
-            if m.remitente not in remitentes:
-                res.append(m)
-                remitentes.append(m.remitente)
-        serializer = listarMensajesSerializer(res, many=True)
+        for amigo in mago.amigos.all():
+            if (Mensaje.objects.filter(remitente=mago, destinatario=amigo).count() != 0 or Mensaje.objects.filter(remitente=amigo, destinatario=mago).count() != 0):
+                conversacion = Mensaje.objects.filter(remitente= mago, destinatario= amigo).order_by('fecha') | Mensaje.objects.filter(remitente= amigo, destinatario= mago).order_by('fecha')
+                mensajes.append(conversacion[-1])
+        serializer = listarMensajesSerializer(mensajes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response(
