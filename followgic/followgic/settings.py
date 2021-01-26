@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'djoser',
     'peticiones',
     'preguntas',
+    'mensajes',
 ]
 
 MIDDLEWARE = [
