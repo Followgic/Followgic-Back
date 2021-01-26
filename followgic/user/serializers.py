@@ -5,17 +5,17 @@ from user.models import *
 class MagoProfileSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Mago
-        fields = ('username', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos')
+        fields = ('pk', 'username', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos')
 
 class MagoCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = Mago
-        fields = ('username', 'password', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'modalidades', 'amigos')
+        fields = ('pk', 'username', 'password', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'modalidades', 'amigos')
 
 class listadoMagosSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = Mago
-        fields = ('pk','nombre', 'nombre_artistico', 'foto')
+        fields = ('pk','nombre', 'nombre_artistico', 'foto', 'modalidades')
 
 class verPerfilMagoSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
@@ -28,6 +28,11 @@ class FotoMagoSerializer(serializers.ModelSerializer):
         fields = ['foto']
 
 class ModalidadesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modalidad
+        fields = ['pk', 'nombre']
+
+class createModalidadesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modalidad
         fields = ['pk', 'nombre']

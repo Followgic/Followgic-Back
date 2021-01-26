@@ -27,6 +27,7 @@ def verMiPerfil(request):
 
 
 @api_view(['GET'])
+#@permission_classes([IsAuthenticated])
 def getModalidades(request):
     try:
         modalidades = Modalidad.objects.all()
@@ -36,6 +37,26 @@ def getModalidades(request):
         return Response(
             {"detail": "Modalidades no encontradas"},
             status=status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def crearModalidad(request):
+    try:
+        if(Modalidad.objects.filter(nombre=request.data['nombre']).count() == 0):
+            print('No existe la modalidad')
+            modalidad = Modalidad.objects.create(nombre=request.data['nombre'])
+            serializer = createModalidadesSerializer(modalidad, many=False)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+            {"detail": "La modalidad ya existe"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    except:
+        return Response(
+            {"detail": "La modalidad no se ha podido crear"},
+            status=status.HTTP_400_BAD_REQUEST
         )
 
 
@@ -98,5 +119,25 @@ def verMisAmigos(request):
             status=status.HTTP_401_UNAUTHORIZED
         )
 
-
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def buscarMago(request):
+    try:
+        id_usuario = request.user.id
+        admin = Mago.objects.get(username= 'admin')
+        lista_magos = Mago.objects.all().exclude(id= id_usuario).exclude(id= admin.id)
+        nombre = request.data['nombre']
+        modalidades = request.data['modalidades']
+        if nombre != '':
+            lista_magos = lista_magos.filter(nombre__icontains=nombre)
+        if modalidades:
+            for id_ in modalidades:
+                lista_magos = lista_magos.filter(modalidades__in=[id_]).distinct()
+        serializer = listadoMagosSerializer(lista_magos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "Usuario no autorizado"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Esto es un populate de la Base de Datos de Followgic. Para usar, escribir 'python .\manage.py loaddata followgic/fixtures/populate.xml'-->
+<!-- Ultimo objeto con pk = 28, proximo pk= 29 -->
 <django-objects version="1.0">
  <!--CUENTA DE ADMINISTRADOR-->
     <object pk="1" model="user.mago">
@@ -154,42 +155,182 @@
     </object>
     <!--MODALIDADES-->
     <object pk="4" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE CERCA</field>
+        <field type="CharField" name="nombre">Magia de cerca</field>
     </object>
     <object pk="5" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE SALÓN</field>
+        <field type="CharField" name="nombre">Magia de salón</field>
     </object>
     <object pk="6" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA DE ESCENA</field>
+        <field type="CharField" name="nombre">Magia de escena</field>
     </object>
     <object pk="7" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CALLEJERA</field>
+        <field type="CharField" name="nombre">Magia callejera</field>
     </object>
     <object pk="7" model="user.modalidad">
-        <field type="CharField" name="nombre">NUMISMAGIA</field>
+        <field type="CharField" name="nombre">Numismagia</field>
     </object>
     <object pk="8" model="user.modalidad">
-        <field type="CharField" name="nombre">CARTOMAGIA</field>
+        <field type="CharField" name="nombre">Cartomagia</field>
     </object>
     <object pk="9" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CON ANIMALES</field>
+        <field type="CharField" name="nombre">Magia con animales</field>
     </object>
     <object pk="10" model="user.modalidad">
-        <field type="CharField" name="nombre">GRANDES ILUSIONES</field>
+        <field type="CharField" name="nombre">Grandes ilusiones</field>
     </object>
     <object pk="11" model="user.modalidad">
-        <field type="CharField" name="nombre">MAGIA CÓMICA</field>
+        <field type="CharField" name="nombre">Magia cómica</field>
     </object>
     <object pk="12" model="user.modalidad">
-        <field type="CharField" name="nombre">MENTALISMO</field>
+        <field type="CharField" name="nombre">Mentalismo</field>
     </object>
     <object pk="13" model="user.modalidad">
-        <field type="CharField" name="nombre">PRESTIDIGITACIÓN</field>
+        <field type="CharField" name="nombre">Prestidigitación</field>
     </object>
     <object pk="14" model="user.modalidad">
-        <field type="CharField" name="nombre">ESCAPISMO</field>
+        <field type="CharField" name="nombre">Escapismo</field>
     </object>
     <object pk="15" model="user.modalidad">
-        <field type="CharField" name="nombre">OTRAS</field>
+        <field type="CharField" name="nombre">Otras</field>
+    </object>
+    <object pk="20" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es la magia?</field>
+        <field type="CharField" name="primera_opcion">Una forma de ligar con chicas.</field>
+        <field type="CharField" name="segunda_opcion">Un arte con el que te puedes divertir, sorprender a las personas y además ganar dinero.</field>
+        <field type="CharField" name="tercera_opcion">Es el único arte que hace realidad lo imposible.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="21" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quienes forman el grupo de magia llamado los Fat Brothers?</field>
+        <field type="CharField" name="primera_opcion">Dani DaOrtiz y Juan Tamariz.</field>
+        <field type="CharField" name="segunda_opcion">Dani DaOrtiz, Miguel Ángel Gea y Christian Engblom.</field>
+        <field type="CharField" name="tercera_opcion">El Mago Pop, Jorge Blass y Yunke.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="22" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cual es el nombre del juego en el que se mezclan cartas cara arriba con cartas cara abajo?</field>
+        <field type="CharField" name="primera_opcion">Triunfo.</field>
+        <field type="CharField" name="segunda_opcion">Mini agua y aceite.</field>
+        <field type="CharField" name="tercera_opcion">La baraja ambiciosa.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="23" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Que tipo de baraja es capaz de crear la ilusión de que todas sus cartas son iguales?</field>
+        <field type="CharField" name="primera_opcion">Baraja Invisible.</field>
+        <field type="CharField" name="segunda_opcion">Baraja Svengali.</field>
+        <field type="CharField" name="tercera_opcion">Baraja Biselada.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="24" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del juego en el que los colores de las cartas se separan?</field>
+        <field type="CharField" name="primera_opcion">Pensando en colores.</field>
+        <field type="CharField" name="segunda_opcion">El trilero.</field>
+        <field type="CharField" name="tercera_opcion">Agua y aceite.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+     <object pk="25" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién inventó el truco del Triunfo?</field>
+        <field type="CharField" name="primera_opcion">Dai Vernon.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Dani Daortiz.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="26" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Como se llama el arte de hacer florituras y figuras con las cartas?</field>
+        <field type="CharField" name="primera_opcion">Cartomagia.</field>
+        <field type="CharField" name="segunda_opcion">Cardistry.</field>
+        <field type="CharField" name="tercera_opcion">Ilusionismo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="27" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del famoso mago que utiliza, por excelencia, el humor como herramienta principal en todos sus números de magia?</field>
+        <field type="CharField" name="primera_opcion">El Mago Pop.</field>
+        <field type="CharField" name="segunda_opcion">Luis Piedrahita.</field>
+        <field type="CharField" name="tercera_opcion">Juan Tamariz.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="28" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué herramienta fundamental necesita todo mago para hacer magia con pañuelos?</field>
+        <field type="CharField" name="primera_opcion">FP.</field>
+        <field type="CharField" name="segunda_opcion">Hilos invisibles.</field>
+        <field type="CharField" name="tercera_opcion">Imanes.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="29" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Con qué baraja podemos adivinar cualquier carta pensada por el espectador?</field>
+        <field type="CharField" name="primera_opcion">Baraja Invisible.</field>
+        <field type="CharField" name="segunda_opcion">Baraja Svengali.</field>
+        <field type="CharField" name="tercera_opcion">Baraja Biselada.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="30" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es la misdirection?</field>
+        <field type="CharField" name="primera_opcion">La misdirection consiste en la capacidad de controlar la atención de los espectadores para dirigirla hacia el lugar que nos interesa, cuando estos no están prestando atención.</field>
+        <field type="CharField" name="segunda_opcion">Establecer una distancia temporal (y a veces espacial) entre el momento de la trampa y el de la revelación del efecto.</field>
+        <field type="CharField" name="tercera_opcion">La misdirection consiste en la capacidad de controlar la atención de los espectadores para dirigirla hacia el lugar que nos interesa, apartándola del punto peligroso donde podríamos ser pillados en una trampa.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="31" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cómo se denomina al trucaje de un objeto mágico?</field>
+        <field type="CharField" name="primera_opcion">Objeto trucado.</field>
+        <field type="CharField" name="segunda_opcion">Gaff.</field>
+        <field type="CharField" name="tercera_opcion">Gimmick.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="32" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es un loop?</field>
+        <field type="CharField" name="primera_opcion">Tecnica que consiste en girar una moneda.</field>
+        <field type="CharField" name="segunda_opcion">Hilo invisible en bucle.</field>
+        <field type="CharField" name="tercera_opcion">Lazo de un pañuelo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="33" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién se conoce como 'El profesor' dentro de la magia?</field>
+        <field type="CharField" name="primera_opcion">Dai Vernon.</field>
+        <field type="CharField" name="segunda_opcion">Harry Houdini.</field>
+        <field type="CharField" name="tercera_opcion">Copperfield.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="34" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué nombre se le atribuye a la magia con monedas?</field>
+        <field type="CharField" name="primera_opcion">Prestidigitación.</field>
+        <field type="CharField" name="segunda_opcion">Numismagia.</field>
+        <field type="CharField" name="tercera_opcion">Ilusionismo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="35" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién es el autor de cartomagia fundamental?</field>
+        <field type="CharField" name="primera_opcion">Jandro.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Vicente canuto.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="36" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué nombre recibe la acción de esconder un objeto en la palma de la mano?</field>
+        <field type="CharField" name="primera_opcion">Empalmar.</field>
+        <field type="CharField" name="segunda_opcion">Ocultar.</field>
+        <field type="CharField" name="tercera_opcion">Enfilar.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="37" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cómo se llama el premio mundial de magia?</field>
+        <field type="CharField" name="primera_opcion">FESMA.</field>
+        <field type="CharField" name="segunda_opcion">Merlín.</field>
+        <field type="CharField" name="tercera_opcion">FISM.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="38" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿En qué consiste la manipulación en el mundo de la magia?</field>
+        <field type="CharField" name="primera_opcion">Manipular grandes grupos de personas.</field>
+        <field type="CharField" name="segunda_opcion">Hacer florituras y figuras con cartas.</field>
+        <field type="CharField" name="tercera_opcion">En hacer apariciones, desvanecimientos y transformaciones de objetos.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="39" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿A quién pertenece la baraja mnemonica?</field>
+        <field type="CharField" name="primera_opcion">Dani DaOrtiz.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Woody Aragón.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
     </object>
 </django-objects>
