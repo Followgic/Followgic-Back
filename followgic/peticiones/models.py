@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
 
 
 class Peticion(models.Model):
@@ -29,10 +32,11 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
         channel_layer = get_channel_layer()
         # Nombre del grupo // peticion_sergio
         nombre_grupo = "peticion_{}".format(peticion.destinatario.username)
+        print(nombre_grupo)
 
         async_to_sync(channel_layer.group_send)(
             nombre_grupo, {"type": "broadcast_notification_message",
-                           "message": peticion.__str__
+                           "message": "hola sergio"
                            }
         )
     else:

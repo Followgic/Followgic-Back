@@ -28,7 +28,7 @@ def verMisPeticionesPendientes(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def crearPeticionAmistad(request, id):
-    try:
+    
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         destinatario = Mago.objects.get(pk= id)
@@ -52,11 +52,8 @@ def crearPeticionAmistad(request, id):
             {"detail": "Petición ya existente"},
             status = status.HTTP_400_BAD_REQUEST
         ) 
-    except:
-        return Response(
-            {"detail": "Petición no valida"},
-            status = status.HTTP_400_BAD_REQUEST
-        )
+   
+        
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
