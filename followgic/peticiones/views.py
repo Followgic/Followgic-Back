@@ -58,7 +58,7 @@ def crearPeticionAmistad(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def rechazarPeticionAmistad(request, id):
-   # try:
+    try:
         #La peticion de amistad sea del usuario y que exista
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
@@ -71,11 +71,11 @@ def rechazarPeticionAmistad(request, id):
             {"detail": "Petición de amistad rechazada"},
             status = status.HTTP_200_OK
         )
-    # except:
-    #     return Response(
-    #         {"detail": "La petición no se ha podido rechazar"},
-    #         status = status.HTTP_400_BAD_REQUEST
-    #     )
+    except:
+        return Response(
+            {"detail": "La petición no se ha podido rechazar"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -100,7 +100,7 @@ def cancelarPeticionAmistad(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def aceptarPeticionAmistad(request, id):
-    try:
+    #try:
         #La peticion de amistad sea del usuario y que exista
         id_usuario = request.user.id
         destinatario = Mago.objects.get(pk= id_usuario)
@@ -118,11 +118,11 @@ def aceptarPeticionAmistad(request, id):
             {"detail": "Petición de amistad aceptada"},
             status = status.HTTP_200_OK
         )
-    except:
-        return Response(
-            {"detail": "La petición no se ha podido aceptar"},
-            status = status.HTTP_400_BAD_REQUEST
-        )
+    #except:
+    #    return Response(
+    #        {"detail": "La petición no se ha podido aceptar"},
+    #        status = status.HTTP_400_BAD_REQUEST
+    #    )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
