@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
@@ -36,7 +36,32 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
 
         async_to_sync(channel_layer.group_send)(
             nombre_grupo, {"type": "broadcast_notification_message",
-                           "message": "hola sergio"
+                           "message": "Petición de amistad de " + str(peticion.remitente.nombre_artistico)
+                           }
+        )
+    else:
+        print('No se ha creado la peticion de amistad')
+
+        
+def cancelar_peticion(sender, instance, **kwargs):
+    # Conseguimos la peticion
+    
+    if(instance.estado == 0):
+        
+        channel_layer = get_channel_layer()
+        # Nombre del grupo // peticion_sergio
+        nombre_grupo_destinatario = "peticion_{}".format(instance.destinatario.username)
+        nombre_grupo_remitente = "peticion_{}".format(instance.remitente.username)
+     
+
+        async_to_sync(channel_layer.group_send)(
+             nombre_grupo_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Petición de amistad rechazada"
+                           }
+        )
+        async_to_sync(channel_layer.group_send)(
+            nombre_grupo_remitente, {"type": "broadcast_notification_message",
+                           "message": "Petición de amistad rechazada"
                            }
         )
     else:
@@ -44,3 +69,8 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
 
 
 post_save.connect(crear_grupo_notificacion, sender=Peticion)
+post_delete.connect(cancelar_peticion, sender=Peticion)
+
+
+
+
