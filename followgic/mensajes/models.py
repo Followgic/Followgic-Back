@@ -1,6 +1,11 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from django.db.models.signals import post_save, post_delete
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
+
 class Mensaje(models.Model):
     cuerpo = models.TextField(verbose_name='Estado')
     estado = models.IntegerField(verbose_name='Estado', validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -13,3 +18,42 @@ class Mensaje(models.Model):
     
     class Meta:
         ordering = ('estado', '-fecha', '-id', )
+
+
+def crear_grupo_mensaje(sender, instance, **kwargs):
+    id_mensaje = instance.pk
+    mensaje = Mensaje.objects.get(pk=id_mensaje)
+    print(sender)
+    print(instance)
+    
+
+    if(mensaje.estado == 0):
+        channel_layer = get_channel_layer()
+        nombre_destinatario = "canal_{}".format(mensaje.destinatario.username)
+        
+       
+        
+        async_to_sync(channel_layer.group_send)(
+            nombre_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Mensaje remitente " + str(mensaje.remitente.pk)
+                           }
+        )
+    elif(mensaje.estado == 1):
+        channel_layer = get_channel_layer()
+        nombre_destinatario = "canal_{}".format(mensaje.remitente.username)
+        
+
+        async_to_sync(channel_layer.group_send)(
+            nombre_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Mensaje destinatario " + str(mensaje.destinatario.pk)
+                           }
+        )
+
+    
+
+    
+        print("hola chicos ")
+
+
+   
+post_save.connect(crear_grupo_mensaje, sender=Mensaje)

@@ -28,7 +28,7 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
 
     if(peticion.estado == 0):
         channel_layer = get_channel_layer()
-        nombre_grupo = "peticion_{}".format(peticion.destinatario.username)
+        nombre_grupo = "canal_{}".format(peticion.destinatario.username)
         
         async_to_sync(channel_layer.group_send)(
             nombre_grupo, {"type": "broadcast_notification_message",
@@ -37,7 +37,7 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
         )
     else:
         channel_layer = get_channel_layer()
-        nombre_grupo_remitente = "peticion_{}".format(instance.remitente.username)
+        nombre_grupo_remitente = "canal_{}".format(instance.remitente.username)
         async_to_sync(channel_layer.group_send)(
             nombre_grupo_remitente, {"type": "broadcast_notification_message",
                            "message": "Petición de amistad aceptada"
@@ -49,8 +49,8 @@ def cancelar_peticion(sender, instance, **kwargs):
     if(instance.estado == 0):
         channel_layer = get_channel_layer()
         
-        nombre_grupo_destinatario = "peticion_{}".format(instance.destinatario.username)
-        nombre_grupo_remitente = "peticion_{}".format(instance.remitente.username)
+        nombre_grupo_destinatario = "canal_{}".format(instance.destinatario.username)
+        nombre_grupo_remitente = "canal_{}".format(instance.remitente.username)
      
         async_to_sync(channel_layer.group_send)(
              nombre_grupo_destinatario, {"type": "broadcast_notification_message",
