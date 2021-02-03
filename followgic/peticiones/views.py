@@ -9,6 +9,12 @@ from datetime import *
 from user.models import *
 from user.serializers import listadoMagosSerializer
 from mensajes.models import *
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
+
+
+
 
 
 @api_view(['GET'])
@@ -138,6 +144,26 @@ def eliminarAmigo(request, id):
         mago_solicitante.save()
         mago_afectado.amigos.remove(mago_solicitante)
         mago_afectado.save()
+        
+        #Creando señal asincrona para refrescar los amigos cuendo se elimine de la lista de amigos
+        channel_layer = get_channel_layer()
+        nombre_grupo_destinatario = "canal_{}".format(mago_afectado.username)
+     
+        async_to_sync(channel_layer.group_send)(
+            nombre_grupo_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Amigo eliminado"
+                           }
+        )
+        #Recargar conversaciones del usuario que elimina al amigo para que no aparezcan las antiguas
+        nombre_grupo_remitente = "canal_{}".format(mago_solicitante.username)
+     
+        async_to_sync(channel_layer.group_send)(
+            nombre_grupo_remitente, {"type": "broadcast_notification_message",
+                           "message": "Amigo eliminado"
+                           }
+        )
+    
+
         #Si los usuarios tienen mensajes entre si se eliminan
         if (Mensaje.objects.filter(remitente=mago_solicitante, destinatario=mago_afectado).count() >0 or Mensaje.objects.filter(remitente=mago_afectado, destinatario=mago_solicitante).count() >0):
             conversacion = Mensaje.objects.filter(remitente=mago_solicitante, destinatario=mago_afectado) | Mensaje.objects.filter(remitente=mago_afectado, destinatario=mago_solicitante)

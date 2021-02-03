@@ -44,6 +44,14 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
                            }
         )
 
+        channel_layer = get_channel_layer()
+        nombre_grupo_destinatario = "canal_{}".format(instance.destinatario.username)
+        async_to_sync(channel_layer.group_send)(
+            nombre_grupo_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Petición de amistad aceptada"
+                           }
+        )
+
         
 def cancelar_peticion(sender, instance, **kwargs):    
     if(instance.estado == 0):
@@ -63,7 +71,7 @@ def cancelar_peticion(sender, instance, **kwargs):
                            }
         )
     else:
-        print('No se ha creado la peticion de amistad')
+        pass
 
 post_save.connect(crear_grupo_notificacion, sender=Peticion)
 post_delete.connect(cancelar_peticion, sender=Peticion)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete,pre_delete
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
@@ -23,8 +23,7 @@ class Mensaje(models.Model):
 def crear_grupo_mensaje(sender, instance, **kwargs):
     id_mensaje = instance.pk
     mensaje = Mensaje.objects.get(pk=id_mensaje)
-    print(sender)
-    print(instance)
+
     
 
     if(mensaje.estado == 0):
@@ -51,9 +50,33 @@ def crear_grupo_mensaje(sender, instance, **kwargs):
 
     
 
+
+
+def eliminar_mensaje(sender, instance, **kwargs):
+    id_mensaje = instance.pk
+    mensaje = Mensaje.objects.get(pk=id_mensaje)
+
     
-        print("hola chicos ")
+
+
+    channel_layer = get_channel_layer()
+    nombre_destinatario = "canal_{}".format(mensaje.destinatario.username)
+    
+    
+    
+    async_to_sync(channel_layer.group_send)(
+        nombre_destinatario, {"type": "broadcast_notification_message",
+                        "message": "Mensaje remitente " + str(mensaje.remitente.pk)
+                        }
+    )
+   
+
+    
+
+    
 
 
    
 post_save.connect(crear_grupo_mensaje, sender=Mensaje)
+
+pre_delete.connect(eliminar_mensaje, sender=Mensaje)
