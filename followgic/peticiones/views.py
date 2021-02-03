@@ -8,6 +8,7 @@ from peticiones.serializers import *
 from datetime import *
 from user.models import *
 from user.serializers import listadoMagosSerializer
+from mensajes.models import *
 
 
 @api_view(['GET'])
@@ -100,7 +101,7 @@ def cancelarPeticionAmistad(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def aceptarPeticionAmistad(request, id):
-    #try:
+    try:
         #La peticion de amistad sea del usuario y que exista
         id_usuario = request.user.id
         destinatario = Mago.objects.get(pk= id_usuario)
@@ -118,11 +119,11 @@ def aceptarPeticionAmistad(request, id):
             {"detail": "Petición de amistad aceptada"},
             status = status.HTTP_200_OK
         )
-    #except:
-    #    return Response(
-    #        {"detail": "La petición no se ha podido aceptar"},
-    #        status = status.HTTP_400_BAD_REQUEST
-    #    )
+    except:
+        return Response(
+            {"detail": "La petición no se ha podido aceptar"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -137,6 +138,10 @@ def eliminarAmigo(request, id):
         mago_solicitante.save()
         mago_afectado.amigos.remove(mago_solicitante)
         mago_afectado.save()
+        #Si los usuarios tienen mensajes entre si se eliminan
+        if (Mensaje.objects.filter(remitente=mago_solicitante, destinatario=mago_afectado).count() >0 or Mensaje.objects.filter(remitente=mago_afectado, destinatario=mago_solicitante).count() >0):
+            conversacion = Mensaje.objects.filter(remitente=mago_solicitante, destinatario=mago_afectado) | Mensaje.objects.filter(remitente=mago_afectado, destinatario=mago_solicitante)
+            conversacion.delete()
         #Se elimina la peticion de amistad aceptada 
         if (Peticion.objects.filter(remitente= mago_solicitante, destinatario=mago_afectado, estado= 1).count() > 0):
             Peticion.objects.get(remitente= mago_solicitante, destinatario=mago_afectado, estado= 1).delete()
