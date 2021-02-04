@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'channels',
     'preguntas',
     'mensajes',
+    'tiempo_real',
 ]
 
 MIDDLEWARE = [
