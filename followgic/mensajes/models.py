@@ -7,7 +7,7 @@ from channels.layers import get_channel_layer
 
 
 class Mensaje(models.Model):
-    cuerpo = models.TextField(verbose_name='Estado')
+    cuerpo = models.TextField(verbose_name='Cuerpo', max_length=1500)
     estado = models.IntegerField(verbose_name='Estado', validators=[MinValueValidator(-1), MaxValueValidator(1)])
     fecha = models.DateTimeField(verbose_name='Fecha de creación')
     remitente = models.ForeignKey('user.Mago', on_delete=models.CASCADE, related_name='remitente_mensaje', null=True)
@@ -17,7 +17,7 @@ class Mensaje(models.Model):
         return "Mensaje de " + self.remitente.nombre + " a " + self.destinatario.nombre
     
     class Meta:
-        ordering = ('estado', '-fecha', '-id', )
+        ordering = ('estado', '-fecha', '-pk', )
 
 
 def crear_grupo_mensaje(sender, instance, **kwargs):

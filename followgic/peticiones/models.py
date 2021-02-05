@@ -8,7 +8,7 @@ from channels.layers import get_channel_layer
 
 class Peticion(models.Model):
     estado = models.IntegerField(verbose_name='Estado', validators=[
-                                 MinValueValidator(-1), MaxValueValidator(1)])
+                                 MinValueValidator(0), MaxValueValidator(1)])
     fecha = models.DateField(verbose_name='Fecha de creación')
     remitente = models.ForeignKey(
         'user.Mago', on_delete=models.CASCADE, related_name='remitente', null=True)

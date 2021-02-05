@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'preguntas',
     'mensajes',
     'tiempo_real',
+    'eventos',
 ]
 
 MIDDLEWARE = [
