@@ -8,4 +8,5 @@ urlpatterns = [
     path('verConversacion/<int:id>/', views.verConversacion, name="verConversacion"),
     path('verConversacionPorMago/<int:id>/', views.verConversacionPorMago, name="verConversacionPorMago"),
     path('eliminarMensaje/<int:id>/', views.eliminarMensaje, name="eliminarMensaje"),
+    path('mensajesSinLeerPorMago/<int:id>/', views.mensajesSinLeerPorMago, name="mensajesSinLeerPorMago"),
 ]

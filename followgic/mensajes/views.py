@@ -150,3 +150,23 @@ def eliminarMensaje(request, id):
             {"detail": "El mensaje no se puede eliminar"},
             status = status.HTTP_400_BAD_REQUEST
         )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def mensajesSinLeerPorMago(request, id):
+    try:
+        id_usuario = request.user.id
+        usuario = Mago.objects.get(pk= id_usuario)
+        mago = Mago.objects.get(pk= id)
+        #Verificación de que son amigos
+        assert sonAmigos(usuario, mago.id) == True
+        mensajes = Mensaje.objects.filter(remitente=mago, destinatario=usuario, estado= 0)
+        #Marca como leidos los mensajes que no estén leidos anteriormente
+        serializer = listarMensajesSerializer(mensajes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No se han encontrado mensajes"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
