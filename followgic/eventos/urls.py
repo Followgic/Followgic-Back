@@ -7,5 +7,9 @@ urlpatterns = [
     path('verEvento/<int:id>/', views.verEvento, name="verEvento"),
     path('setImagenverEvento/<int:id>/', views.setImagenEvento, name="setImagenverEvento"),
     path('inscribirseEvento/<int:id>/', views.inscribirseEvento, name="inscribirseEvento"),
-    path('desuscribirseEvento/<int:id>/', views.desuscribirseEvento, name="desuscribirseEvento"),
+    path('cancelarInscripcionEvento/<int:id>/', views.cancelarInscripcionEvento, name="cancelarInscripcionEvento"),
+    path('verMagosInscritosPorEvento/<int:id>/', views.verMagosInscritosPorEvento, name="verMagosInscritosPorEvento"),
+    path('eliminarAsistenteEvento/<int:id_evento>/<int:id_usuario>/', views.eliminarAsistenteEvento, name="eliminarAsistenteEvento"),
+    path('editarEvento/<int:id>/', views.editarEvento, name="editarEvento"),
+    path('eliminarEvento/<int:id>/', views.eliminarEvento, name="eliminarEvento"),
 ]

@@ -27,7 +27,6 @@ def verMiPerfil(request):
 
 
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
 def getModalidades(request):
     try:
         modalidades = Modalidad.objects.all()
@@ -44,7 +43,6 @@ def getModalidades(request):
 def crearModalidad(request):
     try:
         if(Modalidad.objects.filter(nombre=request.data['nombre']).count() == 0):
-            print('No existe la modalidad')
             modalidad = Modalidad.objects.create(nombre=request.data['nombre'])
             serializer = createModalidadesSerializer(modalidad, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

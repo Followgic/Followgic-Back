@@ -161,7 +161,6 @@ def mensajesSinLeerPorMago(request, id):
         #Verificación de que son amigos
         assert sonAmigos(usuario, mago.id) == True
         mensajes = Mensaje.objects.filter(remitente=mago, destinatario=usuario, estado= 0)
-        #Marca como leidos los mensajes que no estén leidos anteriormente
         serializer = listarMensajesSerializer(mensajes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
