@@ -4,7 +4,7 @@ from .models import *
 class crearEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
-        fields = ['pk', 'titulo', 'tipo', 'link_conferencia', 'descripcion', 'fecha_evento', 'hora_evento', 'aforo', 'foto', 'modalidades']
+        fields = ['pk', 'titulo', 'tipo', 'link_conferencia', 'descripcion', 'fecha_evento', 'hora_evento', 'aforo', 'foto', 'modalidades', 'comentarios']
 
 class listarEventoSerializer(serializers.ModelSerializer):
     class Meta:

@@ -24,6 +24,7 @@ class Evento(models.Model):
     foto = models.ImageField(upload_to='', verbose_name='Foto del evento', default='default_eventos.png')
     creador = models.ForeignKey('user.Mago', on_delete=models.CASCADE, related_name='creador', null=True)
     asistentes = models.ManyToManyField('user.Mago', related_name='asistentes', blank=True)
+    usuarios_activos = models.ManyToManyField('user.Mago', related_name='activos', blank=True)
     modalidades = models.ManyToManyField('user.Modalidad', blank=True)
     comentarios = models.ManyToManyField('Comentario', blank=True)
 

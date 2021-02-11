@@ -12,4 +12,6 @@ urlpatterns = [
     path('eliminarAsistenteEvento/<int:id_evento>/<int:id_usuario>/', views.eliminarAsistenteEvento, name="eliminarAsistenteEvento"),
     path('editarEvento/<int:id>/', views.editarEvento, name="editarEvento"),
     path('eliminarEvento/<int:id>/', views.eliminarEvento, name="eliminarEvento"),
+    path('silenciarEvento/<int:id>/', views.silenciarEvento, name="silenciarEvento"),
+    path('habilitarMensajesEvento/<int:id>/', views.habilitarMensajesEvento, name="habilitarMensajesEvento"),
 ]

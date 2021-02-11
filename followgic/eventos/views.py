@@ -36,9 +36,19 @@ def crearEvento(request):
         evento.aforo = request.data['aforo']
         evento.foto = request.data['foto']
         evento.creador = mago
+        #Crear el comentario inicial del evento
+        comentario = Comentario()
+        comentario.fecha = datetime.now()
+        comentario.remitente = mago
+        if(request.data['comentario'] == ''):
+            comentario.cuerpo = '¡Bienvenido a ' + request.data['titulo'] + '!'
+        else:
+            comentario.cuerpo = request.data['comentario']
+        comentario.save()
         evento.save()
         evento.modalidades.set(request.data['modalidades'])
-
+        evento.usuarios_activos.add(mago)
+        evento.comentarios.add(comentario)
         serializer = crearEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     except:
@@ -105,7 +115,9 @@ def inscribirseEvento(request, id):
         evento = Evento.objects.get(pk = id)
         assert evento.creador != mago
         assert mago not in evento.asistentes.all()
+        assert mago not in evento.usuarios_activos.all()
         evento.asistentes.add(mago)
+        evento.usuarios_activos.add(mago)
         evento.save()
         serializer = listarEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -124,7 +136,9 @@ def cancelarInscripcionEvento(request, id):
         evento = Evento.objects.get(pk = id)
         assert evento.creador != mago
         assert mago in evento.asistentes.all()
+        assert mago in evento.usuarios_activos.all()
         evento.asistentes.remove(mago)
+        evento.usuarios_activos.remove(mago)
         evento.save()
         serializer = listarEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -205,6 +219,50 @@ def eliminarEvento(request, id):
         evento.delete()
         return Response(
             {"detail": "Evento eliminado correctamente"},
+            status = status.HTTP_200_OK
+        )
+    except:
+        return Response(
+            {"detail": "Evento no valido"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def silenciarEvento(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert evento.creador != mago
+        assert mago in evento.asistentes.all()
+        assert mago in evento.usuarios_activos.all()
+        evento.usuarios_activos.remove(mago)
+        evento.save()
+        return Response(
+            {"detail": "Evento silenciado correctamente"},
+            status = status.HTTP_200_OK
+        )
+    except:
+        return Response(
+            {"detail": "Evento no valido"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def habilitarMensajesEvento(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert evento.creador != mago
+        assert mago in evento.asistentes.all()
+        assert mago not in evento.usuarios_activos.all()
+        evento.usuarios_activos.add(mago)
+        evento.save()
+        return Response(
+            {"detail": "Habilitadas los mensajes de este evento correctamente"},
             status = status.HTTP_200_OK
         )
     except:
