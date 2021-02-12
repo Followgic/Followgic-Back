@@ -24,13 +24,9 @@ def crear_grupo_mensaje(sender, instance, **kwargs):
     id_mensaje = instance.pk
     mensaje = Mensaje.objects.get(pk=id_mensaje)
 
-    
-
     if(mensaje.estado == 0):
         channel_layer = get_channel_layer()
         nombre_destinatario = "canal_{}".format(mensaje.destinatario.username)
-        
-       
         
         async_to_sync(channel_layer.group_send)(
             nombre_destinatario, {"type": "broadcast_notification_message",
@@ -41,7 +37,6 @@ def crear_grupo_mensaje(sender, instance, **kwargs):
         channel_layer = get_channel_layer()
         nombre_destinatario = "canal_{}".format(mensaje.remitente.username)
         
-
         async_to_sync(channel_layer.group_send)(
             nombre_destinatario, {"type": "broadcast_notification_message",
                            "message": "Mensaje destinatario " + str(mensaje.destinatario.pk)
@@ -49,20 +44,12 @@ def crear_grupo_mensaje(sender, instance, **kwargs):
         )
 
     
-
-
-
 def eliminar_mensaje(sender, instance, **kwargs):
     id_mensaje = instance.pk
     mensaje = Mensaje.objects.get(pk=id_mensaje)
 
-    
-
-
     channel_layer = get_channel_layer()
     nombre_destinatario = "canal_{}".format(mensaje.destinatario.username)
-    
-    
     
     async_to_sync(channel_layer.group_send)(
         nombre_destinatario, {"type": "broadcast_notification_message",
@@ -71,12 +58,5 @@ def eliminar_mensaje(sender, instance, **kwargs):
     )
    
 
-    
-
-    
-
-
-   
 post_save.connect(crear_grupo_mensaje, sender=Mensaje)
-
 pre_delete.connect(eliminar_mensaje, sender=Mensaje)

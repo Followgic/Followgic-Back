@@ -8,6 +8,7 @@ from .serializers import *
 from user.models import *
 from datetime import *
 from user.serializers import listadoMagosSerializer
+from cryptography.fernet import Fernet
 
 def eliminarEventosCumplidos():
     #Eliminar los eventos que se han pasado de la fecha actual
@@ -29,6 +30,11 @@ def crearEvento(request):
         evento.tipo = request.data['tipo']
         if(request.data['tipo'] == 0):
             evento.link_conferencia = request.data['link_conferencia']
+        evento.privacidad = request.data['privacidad']
+        #Si el evento es privado se genera token y se guarda en BD
+        if(request.data['privacidad'] == 1):
+            token = Fernet.generate_key()
+            evento.token = token
         evento.descripcion = request.data['descripcion']
         evento.fecha_creacion = datetime.now()
         evento.fecha_evento = request.data['fecha_evento']
@@ -270,3 +276,147 @@ def habilitarMensajesEvento(request, id):
             {"detail": "Evento no valido"},
             status = status.HTTP_400_BAD_REQUEST
         )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verEventosCreadosPorMi(request):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        eventos = Evento.objects.filter(creador= mago)
+        serializer = listarEventoSerializer(eventos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No se han encontrado eventos creados por ti"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verEventosSubscritos(request):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        eventos = []
+        for evento in Evento.objects.all():
+            if(mago in evento.asistentes.all()):
+                eventos.append(evento)
+        serializer = listarEventoSerializer(eventos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No se han encontrado eventos"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def enviarComentario(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert mago in evento.asistentes.all() or mago == evento.creador
+        assert mago in evento.usuarios_activos.all()
+
+        comentario = Comentario()
+        comentario.fecha = datetime.now()
+        comentario.remitente = mago
+        comentario.cuerpo = request.data['cuerpo']
+        comentario.save()
+        evento.comentarios.add(comentario)
+        serializer = crearComentarioSerializer(comentario, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(
+            {"detail": "Comentario no valido"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verUltimoComentarioEvento(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert mago in evento.asistentes.all() or mago == evento.creador
+        assert mago in evento.usuarios_activos.all()
+        comentario = evento.comentarios.all().reverse()[0]
+        serializer = listarComentarioSerializer(comentario, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(
+            {"detail": "Comentario no valido"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verComentariosEvento(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert mago in evento.asistentes.all() or mago == evento.creador
+        assert mago in evento.usuarios_activos.all()
+        comentarios = evento.comentarios.all()
+        serializer = listarComentarioSerializer(comentarios, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(
+            {"detail": "No se han encontrado comentarios"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def eliminarComentario(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        comentario = Comentario.objects.get(pk= id)
+        assert comentario.remitente == mago
+        comentario.delete()
+        return Response(
+            {"detail": "Comentario borrado"},
+            status = status.HTTP_200_OK
+        )
+    except:
+        return Response(
+            {"detail": "El comentario no se ha podido borrar"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def codigoInvitacion(request, cadena=None):
+    try:
+        #Faltan todas las validaciones tanto en GET como en POST
+        if(request.method == 'GET'):
+            id_evento = cadena.split("|")[0]
+            id_usuario = cadena.split("|")[1]
+            f = Fernet(Evento.objects.get(pk= id_evento).token.split("'")[1].encode())
+            token_encriptado = f.encrypt(cadena.encode())
+            return Response(
+                {"id_evento": int(id_evento),"token": token_encriptado},
+                status = status.HTTP_200_OK
+            )
+        if(request.method == 'POST'):
+            id_usuario = request.user.id
+            usuario = Mago.objects.get(pk= id_usuario)
+            id_evento = request.data['id_evento']
+            token = request.data['token']
+            f = Fernet(Evento.objects.get(pk= id_evento).token.split("'")[1].encode())
+            mensaje_descifrado = f.decrypt(token.encode()).decode()
+            return Response(
+                {"token": mensaje_descifrado},
+                status = status.HTTP_200_OK
+            )
+    except:
+        return Response(
+            {"detail": "Evento no encontrado"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
+

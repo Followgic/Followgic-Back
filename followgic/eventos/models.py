@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Comentario(models.Model):
     cuerpo = models.TextField(verbose_name='Cuerpo', max_length=1500)
-    fecha = models.DateField(verbose_name='Fecha de creación')
+    fecha = models.DateTimeField(verbose_name='Fecha de creación')
     remitente = models.ForeignKey('user.Mago', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -15,6 +15,8 @@ class Comentario(models.Model):
 class Evento(models.Model):
     titulo = models.TextField(verbose_name='Titulo')
     tipo = models.IntegerField(verbose_name='Tipo de evento', validators=[MinValueValidator(0), MaxValueValidator(1)])
+    privacidad = models.IntegerField(verbose_name='Privacidad del evento', validators=[MinValueValidator(0), MaxValueValidator(1)], default= 0)
+    token = models.TextField(verbose_name='Token', max_length=1500, blank=True)
     link_conferencia = models.URLField(verbose_name='Url de la conferencia', max_length = 200, blank=True) 
     descripcion = models.TextField(verbose_name='Descripción', max_length=1500, blank=True)
     fecha_creacion = models.DateField(verbose_name='Fecha de creación')
