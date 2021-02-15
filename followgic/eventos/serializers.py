@@ -20,3 +20,8 @@ class listarComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
         fields = '__all__'
+
+class listarInvitacionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invitacion
+        fields = '__all__'

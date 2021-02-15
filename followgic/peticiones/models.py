@@ -5,7 +5,6 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
 
-
 class Peticion(models.Model):
     estado = models.IntegerField(verbose_name='Estado', validators=[
                                  MinValueValidator(0), MaxValueValidator(1)])

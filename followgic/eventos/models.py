@@ -1,6 +1,19 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+class Invitacion(models.Model):
+    estado = models.IntegerField(verbose_name='Estado', validators=[MinValueValidator(0), MaxValueValidator(1)])
+    fecha = models.DateTimeField(verbose_name='Fecha de creación')
+    token = models.TextField(verbose_name='Token', max_length=1500, blank=True)
+    evento = models.ForeignKey('Evento', on_delete=models.CASCADE, related_name='evento', null=True)
+    destinatario = models.ForeignKey('user.Mago', on_delete=models.CASCADE, related_name='invitado', null=True)
+
+    def __str__(self):
+        return "Invitación a " + self.evento.titulo
+
+    class Meta:
+        ordering = ('fecha', 'pk', )
+
 class Comentario(models.Model):
     cuerpo = models.TextField(verbose_name='Cuerpo', max_length=1500)
     fecha = models.DateTimeField(verbose_name='Fecha de creación')
