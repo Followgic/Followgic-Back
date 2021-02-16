@@ -17,6 +17,11 @@ def eliminarEventosCumplidos():
     fecha_actual = datetime.now().date()
     for evento in eventos:
         if(fecha_actual > evento.fecha_evento):
+            print('Estamos en el delete')
+            if(evento.comentarios.all().count() > 0):
+                evento.comentarios.all().delete()
+            if(Invitacion.objects.filter(evento=evento).count() > 0):
+                Invitacion.objects.filter(evento=evento).delete()
             evento.delete()
 
 @api_view(['POST'])
@@ -69,9 +74,9 @@ def crearEvento(request):
 @permission_classes([IsAuthenticated])
 def verEvento(request, id):
     try:
-        evento = Evento.objects.get(pk = id)
         #Comprobacion de eventos pasados de fecha
         eliminarEventosCumplidos()
+        evento = Evento.objects.get(pk = id)
         serializer = listarEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
@@ -84,9 +89,9 @@ def verEvento(request, id):
 @permission_classes([IsAuthenticated])
 def listarEventos(request):
     try:
-        eventos = Evento.objects.filter(privacidad=0)
         #Comprobacion de eventos pasados de fecha
         eliminarEventosCumplidos()
+        eventos = Evento.objects.filter(privacidad=0)
         serializer = listarEventoSerializer(eventos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:

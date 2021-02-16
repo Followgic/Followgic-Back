@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11
+    container_name: postgres-followgic
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: followgic
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data
+  redis:
+    image: redis:5
+    container_name: redis
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    container_name: followgic-back
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    links:
+      - db
+      - redis
