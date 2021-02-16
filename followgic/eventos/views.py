@@ -24,6 +24,15 @@ def eliminarEventosCumplidos():
                 Invitacion.objects.filter(evento=evento).delete()
             evento.delete()
 
+def eliminarInvitacionesConTokenCumplidos():
+    #Eliminar las invitaciones que el token haya expirado
+    invitaciones = Invitacion.objects.all()
+    fecha_actual = datetime.now().date()
+    for invitacion in invitaciones:
+        fecha_expiracion = invitacion.fecha + timedelta(days=1)
+        if(fecha_actual > fecha_expiracion):
+            invitacion.delete()
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def crearEvento(request):
@@ -130,6 +139,9 @@ def inscribirseEvento(request, id):
         assert mago not in evento.asistentes.all()
         assert mago not in evento.usuarios_activos.all()
         assert evento.privacidad == 0
+        #Validar si tiene invitacion privada
+        assert evento.privacidad == 0
+        assert Invitacion.objects.filter(evento= evento, destinatario=mago).count() == 0
         evento.asistentes.add(mago)
         evento.usuarios_activos.add(mago)
         evento.save()
@@ -151,6 +163,9 @@ def cancelarInscripcionEvento(request, id):
         assert evento.creador != mago
         assert mago in evento.asistentes.all()
         assert mago in evento.usuarios_activos.all()
+        #Validar si hay invitacion privada
+        if(Invitacion.objects.get(evento=evento, destinatario=mago)):
+            Invitacion.objects.get(evento=evento, destinatario=mago).delete()
         evento.asistentes.remove(mago)
         evento.usuarios_activos.remove(mago)
         evento.save()
@@ -403,6 +418,7 @@ def verMisInvitaciones(request):
     try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
+        eliminarInvitacionesConTokenCumplidos()
         invitaciones = Invitacion.objects.filter(destinatario= mago, estado=0)
         serializer = listarInvitacionesSerializer(invitaciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -448,6 +464,7 @@ def codigoInvitacion(request, cadena=None):
         if(request.method == 'POST'):
             id_usuario = request.user.id
             usuario = Mago.objects.get(pk= id_usuario)
+            eliminarInvitacionesConTokenCumplidos()
             invitacion = Invitacion.objects.get(pk= int(cadena))
             evento = Evento.objects.get(pk= invitacion.evento.pk)
             f = Fernet(str(evento.token).split("'")[1])
@@ -468,6 +485,7 @@ def codigoInvitacion(request, cadena=None):
         if(request.method == 'DELETE'):
             id_usuario = request.user.id
             usuario = Mago.objects.get(pk= id_usuario)
+            eliminarInvitacionesConTokenCumplidos()
             invitacion = Invitacion.objects.get(pk= int(cadena))
             evento = Evento.objects.get(pk= invitacion.evento.pk)
             f = Fernet(str(evento.token).split("'")[1])
