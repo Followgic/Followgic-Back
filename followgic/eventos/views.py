@@ -71,7 +71,7 @@ def verEvento(request, id):
     try:
         evento = Evento.objects.get(pk = id)
         #Comprobacion de eventos pasados de fecha
-        eliminarEventosCumplidos()
+        # eliminarEventosCumplidos()
         serializer = listarEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:

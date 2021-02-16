@@ -35,13 +35,21 @@ def crear_grupo_mensaje(sender, instance, **kwargs):
         )
     elif(mensaje.estado == 1):
         channel_layer = get_channel_layer()
-        nombre_destinatario = "canal_{}".format(mensaje.remitente.username)
+        nombre_remitente = "canal_{}".format(mensaje.remitente.username)
         
         async_to_sync(channel_layer.group_send)(
-            nombre_destinatario, {"type": "broadcast_notification_message",
+            nombre_remitente, {"type": "broadcast_notification_message",
                            "message": "Mensaje destinatario " + str(mensaje.destinatario.pk)
                            }
         )
+        nombre_destinatario = "canal_{}".format(mensaje.destinatario.username)
+        
+        async_to_sync(channel_layer.group_send)(
+            nombre_destinatario, {"type": "broadcast_notification_message",
+                           "message": "Mensaje actualizar " + str(mensaje.remitente.pk)
+                           }
+        )
+
 
     
 def eliminar_mensaje(sender, instance, **kwargs):
