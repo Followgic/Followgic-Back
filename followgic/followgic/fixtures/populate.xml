@@ -193,6 +193,9 @@
     <object pk="15" model="user.modalidad">
         <field type="CharField" name="nombre">Otras</field>
     </object>
+    <object pk="40" model="user.modalidad">
+        <field type="CharField" name="nombre">Todas</field>
+    </object>
     <object pk="20" model="preguntas.Pregunta">
         <field type="CharField" name="enunciado">¿Qué es la magia?</field>
         <field type="CharField" name="primera_opcion">Una forma de ligar con chicas.</field>

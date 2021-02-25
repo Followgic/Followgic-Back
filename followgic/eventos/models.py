@@ -36,7 +36,7 @@ class Evento(models.Model):
     fecha_evento = models.DateField(verbose_name='Fecha del evento')
     hora_evento = models.TimeField(verbose_name='Hora del evento', null=True)
     aforo = models.PositiveIntegerField(verbose_name='Aforo del evento', validators=[MinValueValidator(2)])
-    foto = models.ImageField(upload_to='', verbose_name='Foto del evento', default='default_eventos.png')
+    foto = models.ImageField(upload_to='', verbose_name='Foto del evento', default='default_eventos.jpg')
     creador = models.ForeignKey('user.Mago', on_delete=models.CASCADE, related_name='creador', null=True)
     asistentes = models.ManyToManyField('user.Mago', related_name='asistentes', blank=True)
     usuarios_activos = models.ManyToManyField('user.Mago', related_name='activos', blank=True)
