@@ -164,7 +164,7 @@ def cancelarInscripcionEvento(request, id):
         assert mago in evento.asistentes.all()
         assert mago in evento.usuarios_activos.all()
         #Validar si hay invitacion privada
-        if(Invitacion.objects.get(evento=evento, destinatario=mago)):
+        if(Invitacion.objects.filter(evento= evento, destinatario=mago).count() > 0):
             Invitacion.objects.get(evento=evento, destinatario=mago).delete()
         evento.asistentes.remove(mago)
         evento.usuarios_activos.remove(mago)
