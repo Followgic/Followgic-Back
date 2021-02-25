@@ -201,6 +201,7 @@ def eliminarAsistenteEvento(request, id_evento, id_usuario):
         assert evento.creador == mago
         usuario = Mago.objects.get(pk = id_usuario)
         assert usuario in evento.asistentes.all()
+        evento.usuarios_activos.remove(usuario)
         asistentes = evento.asistentes.remove(usuario)
         serializer = listadoMagosSerializer(asistentes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
