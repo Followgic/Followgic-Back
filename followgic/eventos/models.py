@@ -17,7 +17,7 @@ class Invitacion(models.Model):
 class Comentario(models.Model):
     cuerpo = models.TextField(verbose_name='Cuerpo', max_length=1500)
     fecha = models.DateTimeField(verbose_name='Fecha de creación')
-    remitente = models.ForeignKey('user.Mago', on_delete=models.CASCADE, null=True)
+    remitente = models.ForeignKey('user.Mago', related_name='usuario', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "Comentario de " + self.remitente.nombre

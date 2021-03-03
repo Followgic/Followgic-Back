@@ -1,5 +1,7 @@
 from rest_framework import serializers, fields
 from .models import *
+from user.serializers import *
+from user.models import Mago
 
 class crearEventoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,9 +19,10 @@ class crearComentarioSerializer(serializers.ModelSerializer):
         fields = ['pk', 'cuerpo', 'fecha', 'remitente']
 
 class listarComentarioSerializer(serializers.ModelSerializer):
+    remitente = listadoMagosSerializer(many=False)
     class Meta:
         model = Comentario
-        fields = '__all__'
+        fields = ('pk', 'cuerpo', 'fecha', 'remitente')
 
 class listarInvitacionesSerializer(serializers.ModelSerializer):
     class Meta:
