@@ -505,3 +505,25 @@ def codigoInvitacion(request, cadena=None):
             status = status.HTTP_400_BAD_REQUEST
         )
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def verUsuariosParaInvitar(request, id_evento):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id_evento)
+        assert evento.creador == mago
+        res = []
+        amigos = mago.amigos.all()
+        usuarios_invitados = Invitacion.objects.filter(evento= evento).only('destinatario')
+        for amigo in amigos:
+            if amigo not in usuarios_invitados:
+                res.append(amigo)
+        serializer = listadoMagosSerializer(res, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(
+            {"detail": "No se han encontrado usuarios"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+

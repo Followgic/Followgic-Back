@@ -24,4 +24,5 @@ urlpatterns = [
     path('generarCodigo/<str:cadena>/', views.codigoInvitacion, name="codigoInvitacion"),
     path('aceptarInvitacion/<int:cadena>/', views.codigoInvitacion, name="aceptarInvitacion"),
     path('rechazarInvitacion/<int:cadena>/', views.codigoInvitacion, name="rechazarInvitacion"),
+    path('usuariosParaInvitar/<int:id_evento>/', views.verUsuariosParaInvitar, name="verUsuariosParaInvitar"),
 ]
