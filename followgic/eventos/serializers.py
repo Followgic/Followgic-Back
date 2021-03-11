@@ -25,6 +25,7 @@ class listarComentarioSerializer(serializers.ModelSerializer):
         fields = ('pk', 'cuerpo', 'fecha', 'remitente')
 
 class listarInvitacionesSerializer(serializers.ModelSerializer):
+    evento= listarEventoSerializer(many = False)
     class Meta:
         model = Invitacion
-        fields = '__all__'
+        fields = ('pk','estado','fecha', 'evento', 'destinatario','token')
