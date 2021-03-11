@@ -10,6 +10,8 @@ from datetime import *
 from user.serializers import listadoMagosSerializer
 from cryptography.fernet import Fernet
 from mensajes.views import sonAmigos
+from django.utils import timezone
+
 
 def eliminarEventosCumplidos():
     #Eliminar los eventos que se han pasado de la fecha actual
@@ -27,11 +29,21 @@ def eliminarEventosCumplidos():
 def eliminarInvitacionesConTokenCumplidos():
     #Eliminar las invitaciones que el token haya expirado
     invitaciones = Invitacion.objects.all()
-    fecha_actual = datetime.now().date()
+    fecha_actual = timezone.now()
     for invitacion in invitaciones:
         fecha_expiracion = invitacion.fecha + timedelta(days=1)
         if(fecha_actual > fecha_expiracion):
             invitacion.delete()
+
+def esAsistenteEvento(id_asistente, id_evento):
+    evento = Evento.objects.get(pk = id_evento)
+    asistente = Mago.objects.get(pk= id_asistente)
+    invitaciones = Invitacion.objects.filter(evento= evento)
+    for invitacion in invitaciones:
+        if asistente == invitacion.destinatario:
+            return True
+        else:
+            return False
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -162,12 +174,13 @@ def cancelarInscripcionEvento(request, id):
         evento = Evento.objects.get(pk = id)
         assert evento.creador != mago
         assert mago in evento.asistentes.all()
-        assert mago in evento.usuarios_activos.all()
+      
         #Validar si hay invitacion privada
         if(Invitacion.objects.filter(evento= evento, destinatario=mago).count() > 0):
             Invitacion.objects.get(evento=evento, destinatario=mago).delete()
         evento.asistentes.remove(mago)
-        evento.usuarios_activos.remove(mago)
+        if(mago in evento.usuarios_activos.all()):
+            evento.usuarios_activos.remove(mago)
         evento.save()
         serializer = listarEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -203,6 +216,8 @@ def eliminarAsistenteEvento(request, id_evento, id_usuario):
         assert usuario in evento.asistentes.all()
         evento.usuarios_activos.remove(usuario)
         asistentes = evento.asistentes.remove(usuario)
+        if( Invitacion.objects.filter(destinatario=usuario, evento=evento).count()>0):
+            Invitacion.objects.filter(destinatario=usuario, evento=evento).delete()
         serializer = listadoMagosSerializer(asistentes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
@@ -337,7 +352,7 @@ def verEventosSubscritos(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def enviarComentario(request, id):
-    try:
+    
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         evento = Evento.objects.get(pk= id)
@@ -347,12 +362,13 @@ def enviarComentario(request, id):
         comentario = Comentario()
         comentario.fecha = datetime.now()
         comentario.remitente = mago
+        comentario.evento = evento
         comentario.cuerpo = request.data['cuerpo']
         comentario.save()
         evento.comentarios.add(comentario)
         serializer = crearComentarioSerializer(comentario, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    except:
+    
         return Response(
             {"detail": "Comentario no valido"},
             status = status.HTTP_400_BAD_REQUEST
@@ -416,14 +432,14 @@ def eliminarComentario(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def verMisInvitaciones(request):
-    try:
+    
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         eliminarInvitacionesConTokenCumplidos()
         invitaciones = Invitacion.objects.filter(destinatario= mago, estado=0)
         serializer = listarInvitacionesSerializer(invitaciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    except:
+    
         return Response(
             {"detail": "No se han encontrado invitaciones"},
             status = status.HTTP_204_NO_CONTENT
@@ -515,9 +531,8 @@ def verUsuariosParaInvitar(request, id_evento):
         assert evento.creador == mago
         res = []
         amigos = mago.amigos.all()
-        usuarios_invitados = Invitacion.objects.filter(evento= evento).only('destinatario')
         for amigo in amigos:
-            if amigo not in usuarios_invitados:
+            if not esAsistenteEvento(amigo.pk, evento.pk) and amigo not in evento.asistentes.all():
                 res.append(amigo)
         serializer = listadoMagosSerializer(res, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

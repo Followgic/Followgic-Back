@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.signals import post_save, post_delete,pre_delete
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 
 class Invitacion(models.Model):
     estado = models.IntegerField(verbose_name='Estado', validators=[MinValueValidator(0), MaxValueValidator(1)])
@@ -18,6 +21,7 @@ class Comentario(models.Model):
     cuerpo = models.TextField(verbose_name='Cuerpo', max_length=1500)
     fecha = models.DateTimeField(verbose_name='Fecha de creación')
     remitente = models.ForeignKey('user.Mago', related_name='usuario', on_delete=models.CASCADE, null=True)
+    evento = models.ForeignKey('Evento', on_delete=models.CASCADE, related_name='evento_comentario', null=True)
 
     def __str__(self):
         return "Comentario de " + self.remitente.nombre
@@ -41,10 +45,46 @@ class Evento(models.Model):
     asistentes = models.ManyToManyField('user.Mago', related_name='asistentes', blank=True)
     usuarios_activos = models.ManyToManyField('user.Mago', related_name='activos', blank=True)
     modalidades = models.ManyToManyField('user.Modalidad', blank=True)
-    comentarios = models.ManyToManyField('Comentario', blank=True)
+    comentarios = models.ManyToManyField('Comentario', related_name='comentarios_evento', blank=True)
 
     def __str__(self):
         return self.titulo
     
     class Meta:
         ordering = ('fecha_evento', 'titulo', 'pk', )
+
+
+    
+def crear_grupo_comentario(sender, instance, **kwargs):
+    id_comentario = instance.pk
+    comentario = Comentario.objects.get(pk=id_comentario)
+    print(comentario.evento)
+    channel_layer = get_channel_layer()
+    for asistente in comentario.evento.usuarios_activos.all():
+        if(comentario.remitente != asistente):
+            nombre_destinatario = "canal_{}".format(asistente.username)
+
+            async_to_sync(channel_layer.group_send)(
+                nombre_destinatario, {"type": "broadcast_notification_message",
+                            "message": "Comentario remitente " + str(comentario.evento.pk)
+                            }
+            )
+
+    
+def crear_grupo_invitacion(sender, instance, **kwargs):
+    id_invitacion = instance.pk
+    invitacion = Invitacion.objects.get(pk=id_invitacion)
+
+    channel_layer = get_channel_layer()
+
+    nombre_destinatario = "canal_{}".format(invitacion.destinatario.username)
+
+    async_to_sync(channel_layer.group_send)(
+        nombre_destinatario, {"type": "broadcast_notification_message",
+                    "message": "Invitacion remitente " + str(invitacion.evento.creador.pk)
+                    }
+    )
+
+
+post_save.connect(crear_grupo_comentario, sender=Comentario)
+post_save.connect(crear_grupo_invitacion, sender=Invitacion)
