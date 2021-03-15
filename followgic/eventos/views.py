@@ -364,6 +364,7 @@ def enviarComentario(request, id):
         comentario.remitente = mago
         comentario.evento = evento
         comentario.cuerpo = request.data['cuerpo']
+        comentario.leidos=[]
         comentario.save()
         evento.comentarios.add(comentario)
         serializer = crearComentarioSerializer(comentario, many=False)
@@ -402,8 +403,36 @@ def verComentariosEvento(request, id):
         assert mago in evento.asistentes.all() or mago == evento.creador
         assert mago in evento.usuarios_activos.all()
         comentarios = evento.comentarios.all()
+        #Se marcan como leidos los comentarios por ese usuario
+        for comentario in comentarios:
+            if(mago not in comentario.leidos.all()):
+                comentario.leidos.add(mago)
         serializer = listarComentarioSerializer(comentarios, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(
+            {"detail": "No se han encontrado comentarios"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def comentariosNoLidos(request, id):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        evento = Evento.objects.get(pk= id)
+        assert mago in evento.asistentes.all() or mago == evento.creador
+        assert mago in evento.usuarios_activos.all()
+        comentarios = evento.comentarios.all()
+        comentariosNoLeidos = 0
+        for comentario in comentarios:
+            if(mago not in comentario.leidos.all()):
+                comentariosNoLeidos += 1
+        return Response(
+            {"mensajes": comentariosNoLeidos},
+            status = status.HTTP_200_OK
+        )
     except:
         return Response(
             {"detail": "No se han encontrado comentarios"},

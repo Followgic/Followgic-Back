@@ -18,6 +18,7 @@ urlpatterns = [
     path('habilitarMensajesEvento/<int:id>/', views.habilitarMensajesEvento, name="habilitarMensajesEvento"),
     path('enviarComentario/<int:id>/', views.enviarComentario, name="enviarComentario"),
     path('verUltimoComentarioEvento/<int:id>/', views.verUltimoComentarioEvento, name="verUltimoComentarioEvento"),
+    path('comentariosNoLeidos/<int:id>/', views.comentariosNoLidos, name="comentariosNoLidos"),
     path('verComentariosEvento/<int:id>/', views.verComentariosEvento, name="verComentariosEvento"),
     path('eliminarComentario/<int:id>/', views.eliminarComentario, name="eliminarComentario"),
     path('verMisInvitaciones/', views.verMisInvitaciones, name="verMisInvitaciones"),

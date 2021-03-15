@@ -20,9 +20,10 @@ class crearComentarioSerializer(serializers.ModelSerializer):
 
 class listarComentarioSerializer(serializers.ModelSerializer):
     remitente = listadoMagosSerializer(many=False)
+    leidos = listadoMagosSerializer(many=True)
     class Meta:
         model = Comentario
-        fields = ('pk', 'cuerpo', 'fecha', 'remitente')
+        fields = ('pk', 'cuerpo', 'fecha', 'remitente', 'leidos')
 
 class listarInvitacionesSerializer(serializers.ModelSerializer):
     evento= listarEventoSerializer(many = False)

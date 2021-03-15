@@ -22,6 +22,7 @@ class Comentario(models.Model):
     fecha = models.DateTimeField(verbose_name='Fecha de creación')
     remitente = models.ForeignKey('user.Mago', related_name='usuario', on_delete=models.CASCADE, null=True)
     evento = models.ForeignKey('Evento', on_delete=models.CASCADE, related_name='evento_comentario', null=True)
+    leidos = models.ManyToManyField('user.Mago', related_name='lectores', blank=True)
 
     def __str__(self):
         return "Comentario de " + self.remitente.nombre
