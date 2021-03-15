@@ -77,14 +77,42 @@ def crear_grupo_invitacion(sender, instance, **kwargs):
 
     channel_layer = get_channel_layer()
 
-    nombre_destinatario = "canal_{}".format(invitacion.destinatario.username)
+    if(invitacion.estado==0):
+        nombre_destinatario = "canal_{}".format(invitacion.destinatario.username)
 
-    async_to_sync(channel_layer.group_send)(
-        nombre_destinatario, {"type": "broadcast_notification_message",
-                    "message": "Invitacion remitente " + str(invitacion.evento.creador.pk)
-                    }
-    )
+        async_to_sync(channel_layer.group_send)(
+            nombre_destinatario, {"type": "broadcast_notification_message",
+                        "message": "Invitacion remitente " + str(invitacion.evento.creador.pk)
+                        }
+        )
+
+    if(invitacion.estado==1):
+        nombre_creador_evento = "canal_{}".format(invitacion.evento.creador.username)
+
+        async_to_sync(channel_layer.group_send)(
+            nombre_creador_evento, {"type": "broadcast_notification_message",
+                        "message": "Invitacion aceptada " + str(invitacion.evento.pk)
+                        }
+        )
+
+def crear_grupo_invitacion_eliminar(sender, instance, **kwargs):
+    print(sender)
+    id_invitacion = instance.pk
+    invitacion = Invitacion.objects.get(pk=id_invitacion)
+
+    channel_layer = get_channel_layer()
+
+    if(invitacion.estado==0):
+        nombre_creador_evento = "canal_{}".format(invitacion.evento.creador.username)
+
+        async_to_sync(channel_layer.group_send)(
+            nombre_creador_evento, {"type": "broadcast_notification_message",
+                        "message": "Invitacion rechazada " + str(invitacion.evento.pk)
+                        }
+        )
+   
 
 
 post_save.connect(crear_grupo_comentario, sender=Comentario)
 post_save.connect(crear_grupo_invitacion, sender=Invitacion)
+pre_delete.connect(crear_grupo_invitacion_eliminar, sender=Invitacion)

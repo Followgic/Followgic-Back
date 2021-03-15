@@ -448,7 +448,7 @@ def verMisInvitaciones(request):
 @api_view(['GET', 'POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def codigoInvitacion(request, cadena=None):
-    try:
+    # try:
         #GENERAR CODIGO DE INVITACION
         if(request.method == 'GET'):
             #usuario creador del evento
@@ -515,7 +515,7 @@ def codigoInvitacion(request, cadena=None):
             assert usuario not in evento.usuarios_activos.all()
             invitacion.delete()
             return Response({"detail": "Invitacion rechazada"}, status = status.HTTP_200_OK)
-    except:
+    # except:
         return Response(
             {"detail": "Evento no encontrado"},
             status = status.HTTP_400_BAD_REQUEST
