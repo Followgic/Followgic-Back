@@ -61,8 +61,12 @@ def crear_grupo_comentario(sender, instance, **kwargs):
     comentario = Comentario.objects.get(pk=id_comentario)
     print(comentario.evento)
     channel_layer = get_channel_layer()
+    print(sender)
+    
     for asistente in comentario.evento.usuarios_activos.all():
         if(comentario.remitente != asistente):
+           
+            
             nombre_destinatario = "canal_{}".format(asistente.username)
 
             async_to_sync(channel_layer.group_send)(

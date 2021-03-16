@@ -364,7 +364,7 @@ def enviarComentario(request, id):
         comentario.remitente = mago
         comentario.evento = evento
         comentario.cuerpo = request.data['cuerpo']
-        comentario.leidos=[]
+        # comentario.leidos=[]
         comentario.save()
         evento.comentarios.add(comentario)
         serializer = crearComentarioSerializer(comentario, many=False)
@@ -407,6 +407,7 @@ def verComentariosEvento(request, id):
         for comentario in comentarios:
             if(mago not in comentario.leidos.all()):
                 comentario.leidos.add(mago)
+                comentario.save()
         serializer = listarComentarioSerializer(comentarios, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     except:
