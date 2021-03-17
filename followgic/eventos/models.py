@@ -62,7 +62,7 @@ def crear_grupo_comentario(sender, instance, **kwargs):
     print(comentario.evento)
     channel_layer = get_channel_layer()
     print(sender)
-    
+    print(comentario.evento.usuarios_activos.all())
     for asistente in comentario.evento.usuarios_activos.all():
         if(comentario.remitente != asistente):
            

@@ -405,9 +405,10 @@ def verComentariosEvento(request, id):
         comentarios = evento.comentarios.all()
         #Se marcan como leidos los comentarios por ese usuario
         for comentario in comentarios:
-            if(mago not in comentario.leidos.all()):
-                comentario.leidos.add(mago)
-                comentario.save()
+            if comentario.remitente != mago:
+                if(mago not in comentario.leidos.all()):
+                    comentario.leidos.add(mago)
+                    comentario.save()
         serializer = listarComentarioSerializer(comentarios, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     except:
@@ -428,7 +429,7 @@ def comentariosNoLidos(request, id):
         comentarios = evento.comentarios.all()
         comentariosNoLeidos = 0
         for comentario in comentarios:
-            if(mago not in comentario.leidos.all()):
+            if(mago not in comentario.leidos.all() and mago !=comentario.remitente):
                 comentariosNoLeidos += 1
         return Response(
             {"mensajes": comentariosNoLeidos},
