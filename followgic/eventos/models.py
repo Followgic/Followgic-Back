@@ -59,21 +59,19 @@ class Evento(models.Model):
 def crear_grupo_comentario(sender, instance, **kwargs):
     id_comentario = instance.pk
     comentario = Comentario.objects.get(pk=id_comentario)
-    print(comentario.evento)
     channel_layer = get_channel_layer()
-    print(sender)
-    print(comentario.evento.usuarios_activos.all())
-    for asistente in comentario.evento.usuarios_activos.all():
-        if(comentario.remitente != asistente):
-           
+    if(comentario.evento):
+        for asistente in comentario.evento.usuarios_activos.all():
+            if(comentario.remitente != asistente):
             
-            nombre_destinatario = "canal_{}".format(asistente.username)
+                
+                nombre_destinatario = "canal_{}".format(asistente.username)
 
-            async_to_sync(channel_layer.group_send)(
-                nombre_destinatario, {"type": "broadcast_notification_message",
-                            "message": "Comentario remitente " + str(comentario.evento.pk)
-                            }
-            )
+                async_to_sync(channel_layer.group_send)(
+                    nombre_destinatario, {"type": "broadcast_notification_message",
+                                "message": "Comentario remitente " + str(comentario.evento.pk)
+                                }
+                )
 
     
 def crear_grupo_invitacion(sender, instance, **kwargs):
