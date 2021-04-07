@@ -11,6 +11,7 @@ from user.serializers import listadoMagosSerializer
 from cryptography.fernet import Fernet
 from mensajes.views import sonAmigos
 from django.utils import timezone
+from localizacion.models import Localizacion
 
 
 def eliminarEventosCumplidos():
@@ -48,7 +49,7 @@ def esAsistenteEvento(id_asistente, id_evento):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def crearEvento(request):
-    try:
+    # try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
 
@@ -70,6 +71,7 @@ def crearEvento(request):
         if(request.data['foto'] != ''):
             evento.foto = request.data['foto']
         evento.creador = mago
+        evento.localizacion = Localizacion.objects.get(pk= request.data['localizacion'])
         #Crear el comentario inicial del evento
         comentario = Comentario()
         comentario.fecha = datetime.now()
@@ -85,11 +87,11 @@ def crearEvento(request):
         evento.comentarios.add(comentario)
         serializer = crearEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    except:
-        return Response(
-            {"detail": "Evento no valido"},
-            status = status.HTTP_400_BAD_REQUEST
-        )
+    # except:
+    #     return Response(
+    #         {"detail": "Evento no valido"},
+    #         status = status.HTTP_400_BAD_REQUEST
+    #     )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

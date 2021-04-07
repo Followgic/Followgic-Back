@@ -21,8 +21,9 @@ class Mago(AbstractUser):
     foto = models.ImageField(upload_to='', verbose_name='Foto de perfil', default='default.png')
     modalidades = models.ManyToManyField('Modalidad', blank=True)
     amigos = models.ManyToManyField('Mago', blank=True)
+    localizacion = models.ForeignKey('localizacion.Localizacion', on_delete=models.CASCADE, related_name='localizacion_usuario', null=True)
 
-    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos']
+    REQUIRED_FIELDS = ['email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos', 'localizacion']
 
     def __str__(self):
         return self.username

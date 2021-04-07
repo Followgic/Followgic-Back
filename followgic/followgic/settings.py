@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'mensajes',
     'tiempo_real',
     'eventos',
+    'localizacion',
 ]
 
 MIDDLEWARE = [

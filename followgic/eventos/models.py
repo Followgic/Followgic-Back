@@ -47,6 +47,7 @@ class Evento(models.Model):
     usuarios_activos = models.ManyToManyField('user.Mago', related_name='activos', blank=True)
     modalidades = models.ManyToManyField('user.Modalidad', blank=True)
     comentarios = models.ManyToManyField('Comentario', related_name='comentarios_evento', blank=True)
+    localizacion = models.ForeignKey('localizacion.Localizacion', on_delete=models.CASCADE, related_name='localizacion_evento', null=True)
 
     def __str__(self):
         return self.titulo
