@@ -7,6 +7,7 @@ from rest_framework import status
 from .models import *
 from .serializers import crearLocalizacionSerializer
 from rest_framework.parsers import JSONParser
+from user.models import Mago
 
 @api_view(['POST'])
 def crearLocalizacion(request):
@@ -21,4 +22,24 @@ def crearLocalizacion(request):
        return Response(
            {"detail": "Localizacion no valida"},
            status = status.HTTP_400_BAD_REQUEST
+       )
+       
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def obtenerGeoJsonUsuario(request, id):
+    mago = Mago.objects.get(pk= id)
+    localizacion = mago.localizacion
+    geoJson = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [localizacion.longitud,localizacion.latitud] 
+            },
+            "properties": {
+                "name": localizacion.direccion
+            }
+        }
+    return Response(
+           {"geoJson": geoJson},
+           
        )

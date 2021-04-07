@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('crearLocalizacion/', views.crearLocalizacion, name="crearLocalizacion"),
+    path('obtenerLocalizacion/<int:id>/', views.obtenerGeoJsonUsuario, name="obtenerLocalizacion"),
 ]
