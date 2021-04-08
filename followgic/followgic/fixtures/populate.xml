@@ -44,6 +44,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">42</field>
     </object>
     <object pk="3" model="user.mago">
         <!--sergimac98/sergimac98-->
@@ -66,6 +67,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">41</field>
     </object>
     <object pk="16" model="user.mago">
         <!--youngMagician/contraseña1234-->
@@ -88,6 +90,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">43</field>
     </object>
     <object pk="17" model="user.mago">
         <!--canela29/contraseña1234-->
@@ -109,6 +112,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">44</field>
     </object>
     <object pk="18" model="user.mago">
         <!--inmamagic00/contraseña1234-->
@@ -130,6 +134,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">45</field>
     </object>
     <object pk="19" model="user.mago">
         <!--karen96/contraseña1234-->
@@ -152,6 +157,7 @@
         </field>
         <field to="user.mago" name="amigos" rel="ManyToManyRel">
         </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">40</field>
     </object>
     <!--MODALIDADES-->
     <object pk="4" model="user.modalidad">
@@ -332,5 +338,36 @@
         <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
         <field type="CharField" name="tercera_opcion">Woody Aragón.</field>
         <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <!--Localizaciones-->
+    <object pk="40" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.536669</field>
+        <field type="IntegerField" name="longitud">-5.0795475</field>
+        <field type="CharField" name="direccion">IES San Fulgencio</field>
+    </object>
+    <object pk="41" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.533762</field>
+        <field type="IntegerField" name="longitud">-5.083223</field>
+        <field type="CharField" name="direccion">Calle Cesáreo Cambronero, 5</field>
+    </object>
+    <object pk="42" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.534156</field>
+        <field type="IntegerField" name="longitud">-5.084261</field>
+        <field type="CharField" name="direccion">Barriada Santa Ana</field>
+    </object>
+    <object pk="43" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.5359477</field>
+        <field type="IntegerField" name="longitud">-5.0798419</field>
+        <field type="CharField" name="direccion">Estadio Municipal San Pablo</field>
+    </object>
+    <object pk="44" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.3515616</field>
+        <field type="IntegerField" name="longitud">-5.9689625</field>
+        <field type="CharField" name="direccion">Parque de María Luisa</field>
+    </object>
+    <object pk="45" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.3767481</field>
+        <field type="IntegerField" name="longitud">-6.0623329</field>
+        <field type="CharField" name="direccion">Tomares</field>
     </object>
 </django-objects>
