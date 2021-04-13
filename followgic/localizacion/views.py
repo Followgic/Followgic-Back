@@ -8,6 +8,7 @@ from .models import *
 from .serializers import crearLocalizacionSerializer
 from rest_framework.parsers import JSONParser
 from user.models import Mago
+from eventos.models import Evento
 from user.serializers import listadoMagosSerializer
 
 @api_view(['POST'])
@@ -70,6 +71,34 @@ def obtenerGeoJsonTodosUsuarios(request):
                         "name": m.localizacion.direccion
                     }
                 } for m in magos.all()]    
+            }
+        return Response(
+            {"geoJson": geoJson}
+        )
+    except:
+       return Response(
+           {"detail": "Localizacion no valida"},
+           status = status.HTTP_400_BAD_REQUEST
+       )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def obtenerGeoJsonTodosEventos(request):
+    try:
+        eventos = Evento.objects.all()
+        geoJson = {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "geometry" : {
+                        "type": "Point",
+                        "coordinates": [e.localizacion.longitud, e.localizacion.latitud],
+                    },
+                    "properties": {
+                        "name": e.localizacion.direccion
+                    }
+                } for e in eventos.all()]    
             }
         return Response(
             {"geoJson": geoJson}
