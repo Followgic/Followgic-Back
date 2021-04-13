@@ -49,7 +49,7 @@ def esAsistenteEvento(id_asistente, id_evento):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def crearEvento(request):
-    # try:
+    try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
 
@@ -87,11 +87,11 @@ def crearEvento(request):
         evento.comentarios.add(comentario)
         serializer = crearEventoSerializer(evento, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    # except:
-    #     return Response(
-    #         {"detail": "Evento no valido"},
-    #         status = status.HTTP_400_BAD_REQUEST
-    #     )
+    except:
+        return Response(
+            {"detail": "Evento no valido"},
+            status = status.HTTP_400_BAD_REQUEST
+        )
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -355,6 +355,7 @@ def verEventosSubscritos(request):
 @permission_classes([IsAuthenticated])
 def enviarComentario(request, id):
     
+    try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         evento = Evento.objects.get(pk= id)
@@ -371,7 +372,8 @@ def enviarComentario(request, id):
         evento.comentarios.add(comentario)
         serializer = crearComentarioSerializer(comentario, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
+    except:
         return Response(
             {"detail": "Comentario no valido"},
             status = status.HTTP_400_BAD_REQUEST
@@ -465,14 +467,14 @@ def eliminarComentario(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def verMisInvitaciones(request):
-    
+    try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk= id_usuario)
         eliminarInvitacionesConTokenCumplidos()
         invitaciones = Invitacion.objects.filter(destinatario= mago, estado=0)
         serializer = listarInvitacionesSerializer(invitaciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+    except:
         return Response(
             {"detail": "No se han encontrado invitaciones"},
             status = status.HTTP_204_NO_CONTENT
@@ -481,7 +483,7 @@ def verMisInvitaciones(request):
 @api_view(['GET', 'POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def codigoInvitacion(request, cadena=None):
-    # try:
+    try:
         #GENERAR CODIGO DE INVITACION
         if(request.method == 'GET'):
             #usuario creador del evento
@@ -548,7 +550,7 @@ def codigoInvitacion(request, cadena=None):
             assert usuario not in evento.usuarios_activos.all()
             invitacion.delete()
             return Response({"detail": "Invitacion rechazada"}, status = status.HTTP_200_OK)
-    # except:
+    except:
         return Response(
             {"detail": "Evento no encontrado"},
             status = status.HTTP_400_BAD_REQUEST
