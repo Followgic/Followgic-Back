@@ -14,7 +14,7 @@ class listarEventoSerializer(serializers.ModelSerializer):
     localizacion = crearLocalizacionSerializer(many=False)
     class Meta:
         model = Evento
-        fields = ['pk', 'titulo', 'tipo', 'privacidad', 'link_conferencia', 'descripcion', 'fecha_evento', 'hora_evento', 'aforo', 'foto', 'modalidades', 'comentarios', 'localizacion']
+        fields = ['id', 'titulo', 'tipo', 'privacidad', 'link_conferencia', 'descripcion', 'fecha_evento', 'hora_evento', 'aforo', 'foto', 'modalidades', 'comentarios', 'localizacion']
 
 class crearComentarioSerializer(serializers.ModelSerializer):
     class Meta:
