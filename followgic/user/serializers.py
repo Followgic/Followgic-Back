@@ -4,6 +4,7 @@ from user.models import *
 from localizacion.serializers import crearLocalizacionSerializer
 
 class MagoProfileSerializer(UserSerializer):
+    localizacion = crearLocalizacionSerializer(many=False)
     class Meta(UserSerializer.Meta):
         model = Mago
         fields = ('pk', 'username', 'email', 'telefono', 'nombre', 'nombre_artistico', 'descripcion', 'pagina_web', 'foto', 'modalidades', 'amigos', 'localizacion')
