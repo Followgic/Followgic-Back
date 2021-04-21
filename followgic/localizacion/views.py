@@ -25,6 +25,23 @@ def crearLocalizacion(request):
            {"detail": "Localizacion no valida"},
            status = status.HTTP_400_BAD_REQUEST
        )
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def editarLocalizacion(request, id):
+    try:
+        localizacion = Localizacion.objects.get(pk= id)
+        localizacion.longitud = request.data['longitud']
+        localizacion.latitud = request.data['latitud']
+        localizacion.direccion = request.data['direccion']
+        localizacion.save()
+        serializer = crearLocalizacionSerializer(localizacion, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+       return Response(
+           {"detail": "Localizacion no valida"},
+           status = status.HTTP_400_BAD_REQUEST
+       )
        
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
