@@ -96,7 +96,9 @@ def obtenerGeoJsonTodosEventos(request):
                         "coordinates": [e.localizacion.longitud, e.localizacion.latitud],
                     },
                     "properties": {
-                        "name": e.localizacion.direccion
+                        "name": e.localizacion.direccion,
+                        "lat": e.localizacion.latitud,
+                        "long": e.localizacion.longitud
                     }
                 } for e in eventos.all()]    
             }
