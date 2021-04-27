@@ -45,10 +45,10 @@ def editarLocalizacion(request, id):
        
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def obtenerGeoJsonUsuario(request, id):
+def obtenerGeoJsonUsuario(request):
     try:
-        assert request.user.id != id
-        mago = Mago.objects.get(pk= id)
+        id_mago = request.user.id
+        mago = Mago.objects.get(pk= id_mago)
         localizacion = mago.localizacion
         geoJson = {
                 "type": "Feature",
