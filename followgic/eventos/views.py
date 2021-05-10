@@ -581,10 +581,10 @@ def verUsuariosParaInvitar(request, id_evento):
 @permission_classes([IsAuthenticated])
 def eventosPorUsuario(request, id_usuario):
     try:
-        id_usuario = request.user.id
-        mago = Mago.objects.get(pk= id_usuario)
+        id_usuario_actual = request.user.id
+        mago = Mago.objects.get(pk= id_usuario_actual)
         usuario = Mago.objects.get(pk= id_usuario)
-        assert sonAmigos(mago, id_usuario) == True
+        assert sonAmigos(mago, usuario.id) == True
         eventos = Evento.objects.filter(creador= usuario, privacidad= 0)
         serializer = listarEventoSerializer(eventos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
