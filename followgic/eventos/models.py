@@ -100,7 +100,6 @@ def crear_grupo_invitacion(sender, instance, **kwargs):
         )
 
 def crear_grupo_invitacion_eliminar(sender, instance, **kwargs):
-    print(sender)
     id_invitacion = instance.pk
     invitacion = Invitacion.objects.get(pk=id_invitacion)
 

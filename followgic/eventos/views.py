@@ -20,7 +20,6 @@ def eliminarEventosCumplidos():
     fecha_actual = datetime.now().date()
     for evento in eventos:
         if(fecha_actual > evento.fecha_evento):
-            print('Estamos en el delete')
             if(evento.comentarios.all().count() > 0):
                 evento.comentarios.all().delete()
             if(Invitacion.objects.filter(evento=evento).count() > 0):
