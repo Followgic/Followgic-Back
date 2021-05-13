@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,17 +39,35 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'user',
+    'djoser',
+    'peticiones',
+    'channels',
+    'preguntas',
+    'mensajes',
+    'tiempo_real',
+    'eventos',
+    'localizacion',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
+
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:4200',
+  'http://127.0.0.1:4200'
+)
 
 ROOT_URLCONF = 'followgic.urls'
 
@@ -69,6 +88,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'followgic.wsgi.application'
+ASGI_APPLICATION = 'followgic.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redisfollowgic.southcentralus.azurecontainer.io', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -76,10 +104,37 @@ WSGI_APPLICATION = 'followgic.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'followgic',
+        'USER': 'user',
+        'PASSWORD': 'user',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSIONS_CLASSES' : (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+AUTH_USER_MODEL = 'user.Mago'
+
+DJOSER = {
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SERIALIZERS' : {
+        'user_create': 'user.serializers.MagoCreateSerializer',
+        'user': 'user.serializers.MagoCreateSerializer',
+    },
+
+}
+
 
 
 # Password validation
@@ -104,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -118,4 +173,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
+MEDIA_URL ='/carga/imagenes/'
 STATIC_URL = '/static/'

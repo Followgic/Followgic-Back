@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Esto es un populate de la Base de Datos de Followgic. Para usar, escribir 'python .\manage.py loaddata followgic/fixtures/populate.xml'-->
+<!-- Ultimo objeto con pk = 28, proximo pk= 29 -->
+<django-objects version="1.0">
+ <!--CUENTA DE ADMINISTRADOR-->
+    <object pk="1" model="user.mago">
+        <!--admin/admin-->
+        <field type="CharField" name="username">admin</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$4mkfYPHIDJyt$zfvgwhWV/xJz/dE6QfZB6fAveISd44rvKLstnjAk+So=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_superuser">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Álvaro Gonzalez Martín</field>
+        <field type="CharField" name="nombre_artistico">AlvaritoMagic98</field>
+        <field type="CharField" name="descripcion">Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias. Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en la boca. Ni siquiera los todopoderosos signos de puntuación dominan a los textos simulados; una vida, se puede decir, poco ortográfica. Pero un buen día, una pequeña línea de texto simulado, llamada Lorem Ipsum, decidió aventurarse y salir al vasto mundo de la gramática. El gran Oxmox le desanconsejó hacerlo, ya que esas tierras estaban llenas de comas malvadas, signos de interrogación salvajes y puntos y coma traicioneros, pero el texto simulado no se dejó atemorizar. Empacó sus siete versales, enfundó su inicial en el cinturón y se puso en camino. Cuando ya había escalado las primeras colinas de las montañas cursivas, se dio media vuelta para dirigir su mirada por última vez, hacia su ciudad natal Letralandia, el encabezamiento del pueblo Alfabeto y el subtítulo de su</field>
+        <field type="EmailField" name="email">alvarodiaz@gmail.com</field>
+        <field type="CharField" name="telefono">618303371</field>
+        <field type="CharField" name="pagina_web">https://paginawebadmin.com</field>
+        <field type="ImageField" name="foto">default.png</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="15"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+    </object>
+    <object pk="2" model="user.mago">
+        <!--sulimac98/sulimac98-->
+        <field type="CharField" name="username">sulimac98</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$OCjd8EZXoOHg$j9xrTUhG9H2/K6uF635pUIIZ9KHDfIHRSfeICM2Cxno=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Jesus Elías Rodríguez</field>
+        <field type="CharField" name="nombre_artistico">Sulimac</field>
+        <field type="CharField" name="descripcion">Soy mago desde hace mucho tiempo, me encanta el cardistry y la cartomagia</field>
+        <field type="EmailField" name="email">jeselirod@gmail.com</field>
+        <field type="CharField" name="telefono">662459822</field>
+        <field type="CharField" name="pagina_web">https://followgic.com</field>
+        <field type="ImageField" name="foto">jesus.jpg</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="4"></object>
+            <object pk="5"></object>
+            <object pk="7"></object>
+            <object pk="8"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">42</field>
+    </object>
+    <object pk="3" model="user.mago">
+        <!--sergimac98/sergimac98-->
+        <field type="CharField" name="username">sergimac98</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$H5xnPk3XcErr$rcdfDGI0wy5Iubo6Hm5x6b/7AD5BzzKbc31YIr1/bRE=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Sergio Pérez Martín</field>
+        <field type="CharField" name="nombre_artistico">Sergimac</field>
+        <field type="CharField" name="descripcion">Soy mago desde hace mucho tiempo, me encanta el cardistry y la cartomagia</field>
+        <field type="EmailField" name="email">sergiopmd@gmail.com</field>
+        <field type="CharField" name="telefono">668624566</field>
+        <field type="CharField" name="pagina_web">https://followgic.com</field>
+        <field type="ImageField" name="foto">sergio.jpg</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="4"></object>
+            <object pk="5"></object>
+            <object pk="7"></object>
+            <object pk="8"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">41</field>
+    </object>
+    <object pk="16" model="user.mago">
+        <!--youngMagician/contraseña1234-->
+        <field type="CharField" name="username">youngMagician</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Alejandro Cano</field>
+        <field type="CharField" name="nombre_artistico">AlexTheMagician</field>
+        <field type="CharField" name="descripcion">Sigo los pasos del mejor mago del mundo DaniDaortiz</field>
+        <field type="EmailField" name="email">youngMagician@gmail.com</field>
+        <field type="CharField" name="telefono">950663616</field>
+        <field type="CharField" name="pagina_web">https://youngMagician.com</field>
+        <field type="ImageField" name="foto">alex.jpg</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="4"></object>
+            <object pk="5"></object>
+            <object pk="6"></object>
+            <object pk="7"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">43</field>
+    </object>
+    <object pk="17" model="user.mago">
+        <!--canela29/contraseña1234-->
+        <field type="CharField" name="username">canela29</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Carmen Ruiz Castilla</field>
+        <field type="CharField" name="nombre_artistico">canelaMagic</field>
+        <field type="CharField" name="descripcion">Soy la maga mas buena del mundo, me encanta la cartomagia y la magia de escenario</field>
+        <field type="EmailField" name="email">carmenrucasti@gmail.com</field>
+        <field type="CharField" name="telefono">671482291</field>
+        <field type="CharField" name="pagina_web">https://canelaMagic.com</field>
+        <field type="ImageField" name="foto">canela.png</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="4"></object>
+            <object pk="5"></object>
+            <object pk="6"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">44</field>
+    </object>
+    <object pk="18" model="user.mago">
+        <!--inmamagic00/contraseña1234-->
+        <field type="CharField" name="username">inmamagic00</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Inma Quesada Paredes</field>
+        <field type="CharField" name="nombre_artistico">Inmagic</field>
+        <field type="CharField" name="descripcion">Me encanta la magia de cerca y el cardistry</field>
+        <field type="EmailField" name="email">inmamagic00@gmail.com</field>
+        <field type="CharField" name="telefono">642190208</field>
+        <field type="CharField" name="pagina_web">https://inmamagic00.com</field>
+        <field type="ImageField" name="foto">inma.jpg</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="5"></object>
+            <object pk="8"></object>
+            <object pk="10"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">45</field>
+    </object>
+    <object pk="19" model="user.mago">
+        <!--karen96/contraseña1234-->
+        <field type="CharField" name="username">martadiaz00</field>
+        <field type="CharField" name="password">pbkdf2_sha256$216000$Wxk8Ci4nBQVQ$pR5hNAYYXmSs2iPMy2/D/jDA++e5ZNq/GOAhcUZpsbg=</field>
+        <field type="IntegerField" name="is_active">1</field>
+        <field type="IntegerField" name="is_staff">1</field>
+        <field type="CharField" name="nombre">Marta Díaz</field>
+        <field type="CharField" name="nombre_artistico">La gran marta</field>
+        <field type="CharField" name="descripcion">Maga de escenario y de grandes ilusiones</field>
+        <field type="EmailField" name="email">martaoficial@gmail.com</field>
+        <field type="CharField" name="telefono">674228196</field>
+        <field type="CharField" name="pagina_web">https://lagranilusiondemarta.com</field>
+        <field type="ImageField" name="foto">karen.jpg</field>
+        <field to="user.modalidad" name="modalidades" rel="ManyToManyRel">
+            <object pk="9"></object>
+            <object pk="5"></object>
+            <object pk="6"></object>
+            <object pk="10"></object>
+        </field>
+        <field to="user.mago" name="amigos" rel="ManyToManyRel">
+        </field>
+        <field to="localizacion.Localizacion" name="localizacion" rel="OneToOneRel">40</field>
+    </object>
+    <!--MODALIDADES-->
+    <object pk="4" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia de cerca</field>
+    </object>
+    <object pk="5" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia de salón</field>
+    </object>
+    <object pk="6" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia de escena</field>
+    </object>
+    <object pk="7" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia callejera</field>
+    </object>
+    <object pk="7" model="user.modalidad">
+        <field type="CharField" name="nombre">Numismagia</field>
+    </object>
+    <object pk="8" model="user.modalidad">
+        <field type="CharField" name="nombre">Cartomagia</field>
+    </object>
+    <object pk="9" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia con animales</field>
+    </object>
+    <object pk="10" model="user.modalidad">
+        <field type="CharField" name="nombre">Grandes ilusiones</field>
+    </object>
+    <object pk="11" model="user.modalidad">
+        <field type="CharField" name="nombre">Magia cómica</field>
+    </object>
+    <object pk="12" model="user.modalidad">
+        <field type="CharField" name="nombre">Mentalismo</field>
+    </object>
+    <object pk="13" model="user.modalidad">
+        <field type="CharField" name="nombre">Prestidigitación</field>
+    </object>
+    <object pk="14" model="user.modalidad">
+        <field type="CharField" name="nombre">Escapismo</field>
+    </object>
+    <object pk="15" model="user.modalidad">
+        <field type="CharField" name="nombre">Otras</field>
+    </object>
+    <object pk="20" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es la magia?</field>
+        <field type="CharField" name="primera_opcion">Una forma de ligar con chicas.</field>
+        <field type="CharField" name="segunda_opcion">Un arte con el que te puedes divertir, sorprender a las personas y además ganar dinero.</field>
+        <field type="CharField" name="tercera_opcion">Es el único arte que hace realidad lo imposible.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="21" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quienes forman el grupo de magia llamado los Fat Brothers?</field>
+        <field type="CharField" name="primera_opcion">Dani DaOrtiz y Juan Tamariz.</field>
+        <field type="CharField" name="segunda_opcion">Dani DaOrtiz, Miguel Ángel Gea y Christian Engblom.</field>
+        <field type="CharField" name="tercera_opcion">El Mago Pop, Jorge Blass y Yunke.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="22" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cual es el nombre del juego en el que se mezclan cartas cara arriba con cartas cara abajo?</field>
+        <field type="CharField" name="primera_opcion">Triunfo.</field>
+        <field type="CharField" name="segunda_opcion">Mini agua y aceite.</field>
+        <field type="CharField" name="tercera_opcion">La baraja ambiciosa.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="23" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Que tipo de baraja es capaz de crear la ilusión de que todas sus cartas son iguales?</field>
+        <field type="CharField" name="primera_opcion">Baraja Invisible.</field>
+        <field type="CharField" name="segunda_opcion">Baraja Svengali.</field>
+        <field type="CharField" name="tercera_opcion">Baraja Biselada.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="24" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del juego en el que los colores de las cartas se separan?</field>
+        <field type="CharField" name="primera_opcion">Pensando en colores.</field>
+        <field type="CharField" name="segunda_opcion">El trilero.</field>
+        <field type="CharField" name="tercera_opcion">Agua y aceite.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+     <object pk="25" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién inventó el truco del Triunfo?</field>
+        <field type="CharField" name="primera_opcion">Dai Vernon.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Dani Daortiz.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="26" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Como se llama el arte de hacer florituras y figuras con las cartas?</field>
+        <field type="CharField" name="primera_opcion">Cartomagia.</field>
+        <field type="CharField" name="segunda_opcion">Cardistry.</field>
+        <field type="CharField" name="tercera_opcion">Ilusionismo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="27" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cuál es el nombre del famoso mago que utiliza, por excelencia, el humor como herramienta principal en todos sus números de magia?</field>
+        <field type="CharField" name="primera_opcion">El Mago Pop.</field>
+        <field type="CharField" name="segunda_opcion">Luis Piedrahita.</field>
+        <field type="CharField" name="tercera_opcion">Juan Tamariz.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="28" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué herramienta fundamental necesita todo mago para hacer magia con pañuelos?</field>
+        <field type="CharField" name="primera_opcion">FP.</field>
+        <field type="CharField" name="segunda_opcion">Hilos invisibles.</field>
+        <field type="CharField" name="tercera_opcion">Imanes.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="29" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Con qué baraja podemos adivinar cualquier carta pensada por el espectador?</field>
+        <field type="CharField" name="primera_opcion">Baraja Invisible.</field>
+        <field type="CharField" name="segunda_opcion">Baraja Svengali.</field>
+        <field type="CharField" name="tercera_opcion">Baraja Biselada.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="30" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es la misdirection?</field>
+        <field type="CharField" name="primera_opcion">La misdirection consiste en la capacidad de controlar la atención de los espectadores para dirigirla hacia el lugar que nos interesa, cuando estos no están prestando atención.</field>
+        <field type="CharField" name="segunda_opcion">Establecer una distancia temporal (y a veces espacial) entre el momento de la trampa y el de la revelación del efecto.</field>
+        <field type="CharField" name="tercera_opcion">La misdirection consiste en la capacidad de controlar la atención de los espectadores para dirigirla hacia el lugar que nos interesa, apartándola del punto peligroso donde podríamos ser pillados en una trampa.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="31" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cómo se denomina al trucaje de un objeto mágico?</field>
+        <field type="CharField" name="primera_opcion">Objeto trucado.</field>
+        <field type="CharField" name="segunda_opcion">Gaff.</field>
+        <field type="CharField" name="tercera_opcion">Gimmick.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="32" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué es un loop?</field>
+        <field type="CharField" name="primera_opcion">Tecnica que consiste en girar una moneda.</field>
+        <field type="CharField" name="segunda_opcion">Hilo invisible en bucle.</field>
+        <field type="CharField" name="tercera_opcion">Lazo de un pañuelo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="33" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién se conoce como 'El profesor' dentro de la magia?</field>
+        <field type="CharField" name="primera_opcion">Dai Vernon.</field>
+        <field type="CharField" name="segunda_opcion">Harry Houdini.</field>
+        <field type="CharField" name="tercera_opcion">Copperfield.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="34" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué nombre se le atribuye a la magia con monedas?</field>
+        <field type="CharField" name="primera_opcion">Prestidigitación.</field>
+        <field type="CharField" name="segunda_opcion">Numismagia.</field>
+        <field type="CharField" name="tercera_opcion">Ilusionismo.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <object pk="35" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Quién es el autor de cartomagia fundamental?</field>
+        <field type="CharField" name="primera_opcion">Jandro.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Vicente canuto.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="36" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Qué nombre recibe la acción de esconder un objeto en la palma de la mano?</field>
+        <field type="CharField" name="primera_opcion">Empalmar.</field>
+        <field type="CharField" name="segunda_opcion">Ocultar.</field>
+        <field type="CharField" name="tercera_opcion">Enfilar.</field>
+        <field type="IntegerField" name="respuesta_correcta">0</field>
+    </object>
+    <object pk="37" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿Cómo se llama el premio mundial de magia?</field>
+        <field type="CharField" name="primera_opcion">FESMA.</field>
+        <field type="CharField" name="segunda_opcion">Merlín.</field>
+        <field type="CharField" name="tercera_opcion">FISM.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="38" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿En qué consiste la manipulación en el mundo de la magia?</field>
+        <field type="CharField" name="primera_opcion">Manipular grandes grupos de personas.</field>
+        <field type="CharField" name="segunda_opcion">Hacer florituras y figuras con cartas.</field>
+        <field type="CharField" name="tercera_opcion">En hacer apariciones, desvanecimientos y transformaciones de objetos.</field>
+        <field type="IntegerField" name="respuesta_correcta">2</field>
+    </object>
+    <object pk="39" model="preguntas.Pregunta">
+        <field type="CharField" name="enunciado">¿A quién pertenece la baraja mnemonica?</field>
+        <field type="CharField" name="primera_opcion">Dani DaOrtiz.</field>
+        <field type="CharField" name="segunda_opcion">Juan Tamariz.</field>
+        <field type="CharField" name="tercera_opcion">Woody Aragón.</field>
+        <field type="IntegerField" name="respuesta_correcta">1</field>
+    </object>
+    <!--Localizaciones-->
+    <object pk="40" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.536669</field>
+        <field type="IntegerField" name="longitud">-5.0795475</field>
+        <field type="CharField" name="direccion">IES San Fulgencio</field>
+    </object>
+    <object pk="41" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.533762</field>
+        <field type="IntegerField" name="longitud">-5.083223</field>
+        <field type="CharField" name="direccion">Calle Cesáreo Cambronero, 5</field>
+    </object>
+    <object pk="42" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.534156</field>
+        <field type="IntegerField" name="longitud">-5.084261</field>
+        <field type="CharField" name="direccion">Barriada Santa Ana</field>
+    </object>
+    <object pk="43" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.5359477</field>
+        <field type="IntegerField" name="longitud">-5.0798419</field>
+        <field type="CharField" name="direccion">Estadio Municipal San Pablo</field>
+    </object>
+    <object pk="44" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.3515616</field>
+        <field type="IntegerField" name="longitud">-5.9689625</field>
+        <field type="CharField" name="direccion">Parque de María Luisa</field>
+    </object>
+    <object pk="45" model="localizacion.Localizacion">
+        <field type="IntegerField" name="latitud">37.3767481</field>
+        <field type="IntegerField" name="longitud">-6.0623329</field>
+        <field type="CharField" name="direccion">Tomares</field>
+    </object>
+</django-objects>
