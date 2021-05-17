@@ -17,7 +17,6 @@ import dj_database_url
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "followgic.settings")
-DATABASES = { 'default' : dj_database_url.config()}
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -56,6 +55,7 @@ INSTALLED_APPS = [
     'tiempo_real',
     'eventos',
     'localizacion',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
@@ -118,6 +119,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
@@ -179,6 +183,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
 MEDIA_URL ='/carga/imagenes/'
 STATIC_URL = '/static/'
