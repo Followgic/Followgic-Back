@@ -3,4 +3,4 @@
 % worker: python manage.py runworker -v2
 
 release: cd followgic && python manage.py migrate
-web: cd decifollowgicde && gunicorn followgic.wsgi --log-file -
+web: cd followgic && gunicorn followgic.wsgi --log-file -
