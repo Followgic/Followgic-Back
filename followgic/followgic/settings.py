@@ -13,8 +13,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import django_heroku
 import os
 from pathlib import Path
+import dj_database_url
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "followgic.settings")
+DATABASES = { 'default' : dj_database_url.config()}
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
