@@ -10,10 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import django_heroku
 import os
 from pathlib import Path
-import dj_database_url
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "followgic.settings")
@@ -30,9 +28,7 @@ SECRET_KEY = 'hvlf=hep@j$x=8#05pro@(&27#r&sz(08v+-(6ejl=atwu_9@^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-
-BASE_URL = "https://followgic-back.herokuapp.com/"
+ALLOWED_HOSTS = ['127.0.0.1', '.azurewebsites.net']
 
 # Application definition
 
@@ -115,13 +111,10 @@ DATABASES = {
         'NAME': 'followgic',
         'USER': 'user',
         'PASSWORD': 'user',
-        'HOST': 'localhost',
+        'HOST': 'followgic-postgres.postgres.database.azure.com',
         'PORT': '5432',
     }
 }
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
@@ -187,5 +180,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
 MEDIA_URL ='/carga/imagenes/'
 STATIC_URL = '/static/'
-
-django_heroku.settings(locals())
