@@ -25,10 +25,8 @@ def crear_grupo_notificacion(sender, instance, **kwargs):
     id_peticion = instance.pk
     peticion = Peticion.objects.get(pk=id_peticion)
 
-    print('Hemos entrado en el signal')
     if(peticion.estado == 0):
         channel_layer = get_channel_layer()
-        print('Ha pasado el asgi')
         nombre_grupo = "canal_{}".format(peticion.destinatario.username)
         
         async_to_sync(channel_layer.group_send)(
