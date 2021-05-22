@@ -7,6 +7,7 @@ import tiempo_real.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'followgic.settings')
 
+channel_layer = get_channel_layer()
 
 application = ProtocolTypeRouter({
   "http": get_asgi_application(),
