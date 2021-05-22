@@ -34,7 +34,8 @@ SECRET_KEY = config('SECRET_KEY', default='hvlf=hep@j$x=8#05pro@(&27#r&sz(08v+-(
 DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-BASEURL = 'https://followgic-backend.herokuapp.com'
+BASEURL = config('BASEURL', default='')
+#BASEURL = 'https://followgic-backend.herokuapp.com'
 #ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else ['127.0.0.1']
 
 # Application definition
