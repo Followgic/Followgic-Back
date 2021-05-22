@@ -12,8 +12,8 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 import tiempo_real.routing
 
 application = ProtocolTypeRouter({
-  "http": django_asgi_app,
-  "websocket": AuthMiddlewareStack(
+    "http": django_asgi_app,
+    "websocket": AuthMiddlewareStack(
         URLRouter(
             tiempo_real.routing.websocket_urlpatterns
         )
