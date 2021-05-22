@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import django_heroku
+import dj_database_url
+from decouple import config
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "followgic.settings")
@@ -28,8 +31,9 @@ SECRET_KEY = 'hvlf=hep@j$x=8#05pro@(&27#r&sz(08v+-(6ejl=atwu_9@^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['127.0.0.1', '.azurewebsites.net']
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+BASEURL = 'https://followgic-backend.herokuapp.com'
+#ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else ['127.0.0.1']
 
 # Application definition
 
@@ -105,17 +109,22 @@ CHANNEL_LAYERS = {
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-hostname = os.environ['DBHOST']
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'followgic',
+#         'USER': 'user',
+#         'PASSWORD': 'user',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DBNAME'],
-        'USER': os.environ['DBUSER'] + "@" + hostname,
-        'PASSWORD': os.environ['DBPASS'],
-        'HOST': hostname + ".postgres.database.azure.com",
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 REST_FRAMEWORK = {
@@ -182,3 +191,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
 MEDIA_URL ='/carga/imagenes/'
 STATIC_URL = '/static/'
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+django_heroku.settings(locals())
