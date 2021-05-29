@@ -183,7 +183,8 @@ USE_L10N = True
 USE_TZ = True
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
+# MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
+MEDIA_ROOT = 'https://followgic-backend.herokuapp.com/carga/imagenes'
 MEDIA_URL ='/carga/imagenes/'
 STATIC_URL = '/static/'
 
