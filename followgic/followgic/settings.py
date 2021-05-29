@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'tiempo_real',
     'eventos',
     'localizacion',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
@@ -182,11 +182,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-# MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
-# MEDIA_URL ='/carga/imagenes/'
-STATIC_URL = '/carga/imagenes/'
-STATIC_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
+MEDIA_URL ='/carga/imagenes/'
+STATIC_URL = '/static/'
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
