@@ -182,10 +182,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
+# MEDIA_URL ='/carga/imagenes/'
+STATIC_URL = '/carga/imagenes/'
+STATIC_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
-MEDIA_URL ='/carga/imagenes/'
-STATIC_URL = '/static/'
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
