@@ -14,16 +14,16 @@ from rest_framework.parsers import FileUploadParser
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def verMiPerfil(request):
-    try:
+    # try:
         id_usuario = request.user.id
         mago = Mago.objects.get(pk=id_usuario)
         serializer = MagoProfileSerializer(mago, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    except:
-        return Response(
-            {"detail": "Usuario no autorizado"},
-            status=status.HTTP_401_UNAUTHORIZED
-        )
+    # except:
+    #     return Response(
+    #         {"detail": "Usuario no autorizado"},
+    #         status=status.HTTP_401_UNAUTHORIZED
+    #     )
 
 
 @api_view(['GET'])
