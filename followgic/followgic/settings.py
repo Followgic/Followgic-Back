@@ -181,17 +181,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-if DEBUG == False:
-    MEDIAFILES_LOCATION = 'carga/imagenes'
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-    STATICFILES_LOCATION = 'static'
-    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = 'eu-west-1'
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
+MEDIAFILES_LOCATION = 'carga/imagenes'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = 'eu-west-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'carga/imagenes')
