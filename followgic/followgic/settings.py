@@ -102,7 +102,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('redisfollowgic.southcentralus.azurecontainer.io', 6379)],
+            "hosts": [('followgic-redis.westeurope.azurecontainer.io', 6379)],
         },
     },
 }
@@ -110,7 +110,7 @@ CHANNEL_LAYERS = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": [('redisfollowgic.southcentralus.azurecontainer.io', 6379)],
+        "LOCATION": [('followgic-redis.westeurope.azurecontainer.io', 6379)],
         "OPTIONS": {
             "CLIENT_CLASS": 'django_redis.client.DefaultClient'
         }
