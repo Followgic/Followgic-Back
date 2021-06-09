@@ -27,4 +27,5 @@ urlpatterns = [
     path('rechazarInvitacion/<int:cadena>/', views.codigoInvitacion, name="rechazarInvitacion"),
     path('usuariosParaInvitar/<int:id_evento>/', views.verUsuariosParaInvitar, name="verUsuariosParaInvitar"),
     path('eventosPorUsuario/<int:id_usuario>/', views.eventosPorUsuario, name="eventosPorUsuario"),
+    path('totalComentariosNoLidos/', views.totalComentariosNoLidos, name="totalComentariosNoLidos"),
 ]

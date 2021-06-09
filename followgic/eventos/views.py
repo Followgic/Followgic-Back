@@ -444,6 +444,32 @@ def comentariosNoLidos(request, id):
             status = status.HTTP_204_NO_CONTENT
         )
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def totalComentariosNoLidos(request):
+    try:
+        id_usuario = request.user.id
+        mago = Mago.objects.get(pk= id_usuario)
+        comentariosNoLeidos = 0
+        for evento in Evento.objects.all():
+            if(mago in evento.asistentes.all()):
+                assert mago in evento.asistentes.all() or mago == evento.creador
+                assert mago in evento.usuarios_activos.all()
+                comentarios = evento.comentarios.all()
+                for comentario in comentarios:
+                    if(mago not in comentario.leidos.all() and mago !=comentario.remitente):
+                        comentariosNoLeidos += 1
+        return Response(
+            {"mensajes": comentariosNoLeidos},
+            status = status.HTTP_200_OK
+        )
+
+    except:
+        return Response(
+            {"detail": "No se han encontrado comentarios"},
+            status = status.HTTP_204_NO_CONTENT
+        )
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def eliminarComentario(request, id):
