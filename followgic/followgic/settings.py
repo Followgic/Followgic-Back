@@ -93,7 +93,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('redisfollowgic.southcentralus.azurecontainer.io', 6379)],
+            "hosts": [('followgic-redis.westeurope.azurecontainer.io', 6379)],
         },
     },
 }
